@@ -1,4 +1,4 @@
-export async function fetchCount(amount = 1): Promise<{ data: number }> {
+export async function fetchCount(amount = 10): Promise<{ data: number }> {
   const response = await fetch('/api/counter', {
     method: 'POST',
     headers: {
