@@ -1,7 +1,11 @@
 import useRequest, { customizeRequestType } from '..'
-export const getBanner: customizeRequestType<{ type: number }, { banners: any; code: number }> = (params) => {
+type BannerType = {
+  pic: string
+  bannerId: string
+}[]
+export const getBanner: customizeRequestType<{ type: number }, { banners: BannerType; code: number }> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'banner',
+    url: 'api-text/banner',
     method: 'get',
     params,
   })
