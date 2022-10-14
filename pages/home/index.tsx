@@ -1,9 +1,10 @@
 import IconButtonSet from '../../src/components/home/IconButtonSet'
 import MyHomeHead from '../../src/components/home/MyHomeHead'
-import MySwiper from '../../src/components/home/MySwiper'
+import MySwiper from '../../src/components/home/HomeSwiper'
 import XShow from '../../src/components/home/XShow'
 import { NextPageWithLayout } from '../_app'
-import { getRecommendList } from '../../src/services/recommendList'
+import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
+import RecommendSong from '../../src/components/home/RecommendSong'
 
 const HomePage: NextPageWithLayout = () => {
   return (
@@ -21,8 +22,13 @@ const HomePage: NextPageWithLayout = () => {
         <IconButtonSet />
       </div>
       {/* Recommended playlist */}
-      <div className="h-64 w-full mt-4">
-        <XShow title="推荐歌单" request={getRecommendList} />
+      <div className="w-full mt-4">
+        <div>
+          <XShow title="推荐歌单" request={getRecommendList} isShowYFirst />
+        </div>
+        <div className="w-full mt-4">
+          <RecommendSong title="每日推荐" request={getRecommendSongs} />
+        </div>
       </div>
     </div>
   )

@@ -29,9 +29,9 @@ const MySearchHead: NextPageWithLayout = () => {
   }
 
   return (
-    <>
+    <div className="h-full w-full flex">
       <div className="w-1/6 flex items-center justify-center" onClick={handleBackToHome}>
-        <LeftOutline fontSize={28} />
+        <LeftOutline fontSize={18} />
       </div>
       <div className="w-4/6 flex flex-col justify-center">
         <SearchBar
@@ -43,9 +43,9 @@ const MySearchHead: NextPageWithLayout = () => {
         />
       </div>
       <div className="w-1/6 flex items-center justify-center">
-        <span className="text-xl">搜索</span>
+        <span className="text-lg">搜索</span>
       </div>
-    </>
+    </div>
   )
 }
 

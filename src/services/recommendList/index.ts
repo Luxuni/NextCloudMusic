@@ -1,10 +1,10 @@
 import useRequest, { customizeRequestType } from '..'
 
-type RecommendListParams = {
+export type RecommendListParams = {
   limit: number
 }
 
-type RecommendListType = {
+export type RecommendListType = {
   category: number
   code: number
   hasTaste: boolean
@@ -45,6 +45,40 @@ export type RecommendDailyListType = {
 export const getRecommendDailyList: customizeRequestType<any, RecommendDailyListType> = () => {
   const { data, isLoading, isError } = useRequest({
     url: 'api-text/recommend/resource',
+    method: 'get',
+  })
+  return {
+    data,
+    isLoading,
+    isError,
+  }
+}
+export type DailySongsType = {
+  name: string
+  reason: string
+  id: number
+  al: {
+    id: number
+    name: string
+    picUrl: string
+  }
+  ar: {
+    id: number
+    name: string
+  }[]
+}
+
+export type RecommendSongsType = {
+  code: number
+  data: {
+    dailySongs: DailySongsType[]
+    recommendReasons: {}
+  }
+}
+
+export const getRecommendSongs: customizeRequestType<any, RecommendSongsType> = () => {
+  const { data, isLoading, isError } = useRequest({
+    url: 'api-text/recommend/songs',
     method: 'get',
   })
   return {

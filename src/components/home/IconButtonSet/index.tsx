@@ -27,7 +27,7 @@ const HomeIconButtonMessageMap = new Map([
 ])
 const IconButtonSet: NextPageWithLayout = () => {
   return (
-    <div className="flex overflow-x-scroll pl-4 pr-4">
+    <div className="h-20 flex overflow-x-scroll items-center pl-4 pr-4">
       {Array.from(HomeIconButtonMessageMap).map((item) => {
         return <HomeIconButton key={item[0]} {...item[1]} />
       })}

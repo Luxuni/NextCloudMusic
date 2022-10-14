@@ -1,14 +1,15 @@
 import { Skeleton } from 'antd-mobile'
-import { MoreOutline, RightOutline } from 'antd-mobile-icons'
 import { NextPageWithLayout } from '../../../pages/_app'
 import { customizeRequestType } from '../../services'
-import { getRecommendDailyList } from '../../services/recommendList'
+import { getRecommendDailyList, RecommendListParams, RecommendListType } from '../../services/recommendList'
 import ShowItem from '../public/ShowItem'
 import YShowItem from '../public/YShowItem'
+import ShowTabBar from './ShowTabBar'
 
 type XShowType = {
   title: string
-  request: customizeRequestType
+  request: customizeRequestType<RecommendListParams, RecommendListType>
+  isShowYFirst?: boolean
 }
 
 const XShow: NextPageWithLayout<XShowType> = (props) => {
@@ -24,22 +25,14 @@ const XShow: NextPageWithLayout<XShowType> = (props) => {
   return (
     <div className="pl-4 pr-4 w-full">
       {/* tab */}
-      <div className="h-8 flex items-center justify-between mb-4">
-        {/* left */}
-        <div className="flex items-center">
-          <div className="text-xl">{props.title}</div>
-          <RightOutline fontSize={18} />
-        </div>
-        {/* right ... */}
-        <div>
-          <MoreOutline fontSize={24} />
-        </div>
-      </div>
+      <ShowTabBar title={props.title} />
       {/* area to show */}
       <div className="flex w-full overflow-x-scroll">
-        <div className="shrink-0 pr-4">
-          <YShowItem request={getRecommendDailyList} />
-        </div>
+        {props.isShowYFirst && (
+          <div className="shrink-0 pr-4">
+            <YShowItem request={getRecommendDailyList} />
+          </div>
+        )}
         {data.result.map((item: any, index: number) => {
           return (
             <div key={item.id} className={index === data.result.length - 1 ? 'shrink-0' : 'shrink-0 pr-4'}>

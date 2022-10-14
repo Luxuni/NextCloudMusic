@@ -1,22 +1,29 @@
 import HotSearch from '../../src/components/search/HotSearch'
 import MySearchHead from '../../src/components/search/MySearchHead'
 import SearchNav from '../../src/components/search/Nav'
+import SearchList from '../../src/components/search/SearchList'
 import { NextPageWithLayout } from '../_app'
 
 const SearchPage: NextPageWithLayout = () => {
   return (
     <div className="absolute inset-0 flex flex-col">
-      {/* search box */}
-      <div className="h-12 flex">
-        <MySearchHead />
-      </div>
-      {/* nav */}
-      <div className="mt-4">
-        <SearchNav />
+      <div className="sticky top-0 bg-gray-100 pb-4">
+        {/* search box */}
+        <div className="h-12">
+          <MySearchHead />
+        </div>
+        {/* nav */}
+        <div className="mt-4">
+          <SearchNav />
+        </div>
       </div>
       {/* hot search */}
-      <div className="mt-4">
+      <div>
         <HotSearch />
+      </div>
+      {/* search list */}
+      <div className="mt-4">
+        <SearchList />
       </div>
     </div>
   )
