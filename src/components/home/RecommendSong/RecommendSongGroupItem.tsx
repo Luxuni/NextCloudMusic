@@ -2,10 +2,12 @@ import { Ellipsis } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
 import { DailySongsType } from '../../../services/recommendList'
 import MyImage from '../../public/MyImage'
+
 type RecommendSongGroupItemType = {
   data: DailySongsType
   className?: string
 }
+
 const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (props) => {
   return (
     <div className={'h-16 w-full flex justify-between items-center ' + props.className}>

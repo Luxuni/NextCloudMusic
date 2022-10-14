@@ -5,12 +5,14 @@ import XShow from '../../src/components/home/XShow'
 import { NextPageWithLayout } from '../_app'
 import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
 import RecommendSong from '../../src/components/home/RecommendSong'
+import NavLayout from '../../src/components/layout/nav-layout'
+import { ReactElement } from 'react'
 
 const HomePage: NextPageWithLayout = () => {
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="flex flex-col">
       {/* search box */}
-      <div className="h-12 flex">
+      <div className="sticky top-0 z-50 h-12 flex bg-gray-200">
         <MyHomeHead />
       </div>
       {/* swiper */}
@@ -33,4 +35,9 @@ const HomePage: NextPageWithLayout = () => {
     </div>
   )
 }
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
+  return <NavLayout>{page}</NavLayout>
+}
+
 export default HomePage

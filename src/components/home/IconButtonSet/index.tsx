@@ -25,6 +25,7 @@ const HomeIconButtonMessageMap = new Map([
   [9, { icon: GlobalOutline, text: '歌房' }],
   [10, { icon: GiftOutline, text: '数字专辑' }],
 ])
+
 const IconButtonSet: NextPageWithLayout = () => {
   return (
     <div className="h-20 flex overflow-x-scroll items-center pl-4 pr-4">

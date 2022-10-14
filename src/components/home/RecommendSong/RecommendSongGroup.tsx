@@ -6,6 +6,7 @@ type RecommendSongGroupType = {
   data: DailySongsType[]
   className?: string
 }
+
 const RecommendSongGroup: NextPageWithLayout<RecommendSongGroupType> = (props) => {
   return (
     <div className={'flex flex-col shrink-0 w-5/6 h-full ' + props.className}>
