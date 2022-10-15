@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
 import { customizeRequestType } from '../../../services'
 import { RecommendSongsType } from '../../../services/recommendList'
@@ -11,7 +12,22 @@ type RecommendSongGroupType = {
 
 const RecommendSong: NextPageWithLayout<RecommendSongGroupType> = (props) => {
   const { data, isLoading, isError } = props.request()
-  if (isLoading) return <div>loading</div>
+  if (isLoading)
+    return (
+      <div className="pl-4 pr-4 w-full">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className={index === 0 ? 'flex' : 'flex mt-4'}>
+            {/* image */}
+            <Skeleton animated style={{ height: '4rem', width: '4rem' }} />
+            {/* message */}
+            <div className="flex flex-col justify-around pl-4 w-4/5">
+              <Skeleton animated style={{ height: '1rem', width: '60%' }} />
+              <Skeleton animated style={{ height: '1rem', width: '40%' }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
 
   const groupMap: Map<number, typeof data.data.dailySongs> = new Map()
 

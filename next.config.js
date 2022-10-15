@@ -4,10 +4,12 @@ module.exports = withTM({
   reactStrictMode: true,
   swcMinify: true,
   async rewrites() {
-    return [
-      //接口请求 前缀带上/api-text/
-      { source: '/api-text/:path*', destination: `http://localhost:4000/:path*` },
-    ]
+    return {
+      fallback: [
+        //接口请求 前缀带上/api-text/
+        { source: `/api-text/:path*`, destination: `http://localhost:4000/:path*` },
+      ],
+    }
   },
   async redirects() {
     return [

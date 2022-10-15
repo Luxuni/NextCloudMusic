@@ -5,7 +5,12 @@ import MyImage from '../public/MyImage'
 
 const MySwiper: NextPageWithLayout = () => {
   const { data, isLoading, isError } = getBanner({ type: 2 })
-  if (isLoading) return <Skeleton animated style={{ width: '100%', height: '100%', borderRadius: '1rem' }} />
+  if (isLoading)
+    return (
+      <div className="h-60 pl-2 pr-2">
+        <Skeleton animated style={{ width: '100%', height: '100%', borderRadius: '1rem' }} />
+      </div>
+    )
 
   const items = data.banners.map((bannerItem) => (
     <Swiper.Item key={bannerItem.bannerId}>

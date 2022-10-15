@@ -16,10 +16,18 @@ const XShow: NextPageWithLayout<XShowType> = (props) => {
   const { data, isLoading, isError } = props.request({ limit: 5 })
   if (isLoading)
     return (
-      <Skeleton
-        animated
-        style={{ height: '16rem', width: '100%', borderRadius: '1rem', marginLeft: '1rem', marginRight: '1rem' }}
-      />
+      <div className="flex overflow-y-scroll">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <div key={index} className={index === 0 ? '' : 'ml-4'}>
+            {/* image */}
+            <Skeleton animated style={{ height: '9rem', width: '9rem' }} />
+            {/* message */}
+            <div className="w-32">
+              <Skeleton.Paragraph lineCount={2} animated />
+            </div>
+          </div>
+        ))}
+      </div>
     )
 
   return (

@@ -13,6 +13,8 @@
     "antd-mobile": "^5.24.0",
     "antd-mobile-icons": "^0.3.0",
     "axios": "^1.1.2",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
     "next": "latest",
     "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
