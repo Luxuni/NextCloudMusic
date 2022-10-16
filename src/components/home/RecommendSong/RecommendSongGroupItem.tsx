@@ -1,6 +1,9 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
+import { useAppDispatch } from '../../../app/hooks'
+import { addOneSongToPlayer } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
+import { getSongUrl } from '../../../services/song/url'
 import MyImage from '../../public/MyImage'
 
 type RecommendSongGroupItemType = {
@@ -9,10 +12,18 @@ type RecommendSongGroupItemType = {
 }
 
 const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (props) => {
+  const dispatch = useAppDispatch()
+
+  const handleClickRecommendSongPlayBth = async () => {
+    const res = await getSongUrl({ id: props.data.id })
+    props.data.url = res.data.data[0].url
+    dispatch(addOneSongToPlayer(props.data)) // add to playlist
+  }
+
   return (
     <div className={'h-16 w-full flex justify-between items-center ' + props.className}>
       {/* left */}
-      <div className="flex h-full w-full">
+      <div className="flex h-full w-4/5">
         {/* left */}
         {/* image */}
         <div className="h-full aspect-square">
@@ -29,7 +40,7 @@ const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (
         </div>
       </div>
       {/* right play icon */}
-      <div>
+      <div className="h-full w-1/5 flex items-center justify-center" onClick={handleClickRecommendSongPlayBth}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

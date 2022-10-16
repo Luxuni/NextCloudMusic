@@ -1,14 +1,14 @@
+import React, { ReactElement } from 'react'
+import MySwiper from '../../src/components/home/HomeSwiper'
 import IconButtonSet from '../../src/components/home/IconButtonSet'
 import MyHomeHead from '../../src/components/home/MyHomeHead'
-import MySwiper from '../../src/components/home/HomeSwiper'
-import XShow from '../../src/components/home/XShow'
-import { NextPageWithLayout } from '../_app'
-import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
 import RecommendSong from '../../src/components/home/RecommendSong'
+import XShow from '../../src/components/home/XShow'
 import NavLayout from '../../src/components/layout/nav-layout'
-import { ReactElement } from 'react'
+import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
+import { NextPageWithLayout } from '../_app'
 
-const HomePage: NextPageWithLayout = () => {
+const HomePage: NextPageWithLayout<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="flex flex-col">
       {/* search box */}

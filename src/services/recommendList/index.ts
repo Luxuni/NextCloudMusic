@@ -66,6 +66,7 @@ export type DailySongsType = {
     id: number
     name: string
   }[]
+  url?: string // 由于这个接口没有返回歌曲的url，所以这里自己添加一个
 }
 
 export type RecommendSongsType = {

@@ -1,3 +1,4 @@
+import NavLayout from '../../src/components/layout/nav-layout'
 import HotSearch from '../../src/components/search/HotSearch'
 import MySearchHead from '../../src/components/search/MySearchHead'
 import SearchNav from '../../src/components/search/Nav'
@@ -6,7 +7,7 @@ import { NextPageWithLayout } from '../_app'
 
 const SearchPage: NextPageWithLayout = () => {
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="flex flex-col">
       <div className="sticky top-0 bg-gray-100 pb-4">
         {/* search box */}
         <div className="h-12">
@@ -27,6 +28,10 @@ const SearchPage: NextPageWithLayout = () => {
       </div>
     </div>
   )
+}
+
+SearchPage.getLayout = function getLayout(page: ReactElement) {
+  return <NavLayout>{page}</NavLayout>
 }
 
 export default SearchPage

@@ -5,11 +5,13 @@ type MyImageType = {
   src: string
   width?: string
   height?: string
-  borderRadius?: number
+  borderRadius?: number | string
+  className?: string
 }
 const MyImage: NextPageWithLayout<MyImageType> = (props) => {
   return (
     <Image
+      className={props.className}
       lazy
       src={props.src}
       width={props.width ?? '100%'}

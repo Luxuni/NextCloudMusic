@@ -31,7 +31,7 @@ const RecommendSong: NextPageWithLayout<RecommendSongGroupType> = (props) => {
 
   const groupMap: Map<number, typeof data.data.dailySongs> = new Map()
 
-  //data.data.dailySongs ===> groups of three
+  //data.data.dailySongs --> groups of three
   data.data.dailySongs.forEach((item, index) => {
     const groupIndex = Math.floor(index / 3)
     if (!groupMap.has(groupIndex)) {
