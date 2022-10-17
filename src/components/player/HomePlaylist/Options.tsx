@@ -80,9 +80,9 @@ const Options: NextComponentType = () => {
   }
 
   return (
-    <div className="mt-4 flex items-center justify-between" onClick={handleClickPlayModeOption}>
+    <div className="mt-4 mb-4 flex items-center justify-between">
       {/* left */}
-      <div className="flex items-center">
+      <div className="flex items-center" onClick={handleClickPlayModeOption}>
         {/* left--> play mode */}
         <div className="h-8 w-8 flex items-center justify-start">{PlayModeIconMap.get(PlayModeIcon)?.icon}</div>
         {/* mode title */}
@@ -106,7 +106,7 @@ const Options: NextComponentType = () => {
             />
           </svg>
         </div>
-        <div className="h-8 w-8 flex items-center justify-center text-gray-400">
+        <div className="h-8 w-8 flex ml-4 items-center justify-center text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -121,7 +121,7 @@ const Options: NextComponentType = () => {
             />
           </svg>
         </div>
-        <div className="h-8 w-8 flex items-center justify-center text-gray-400">
+        <div className="h-8 w-8 flex ml-4 items-center justify-center text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

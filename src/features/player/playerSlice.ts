@@ -10,7 +10,7 @@ export interface PlayerState {
 
 const initialState: PlayerState = {
   value: [],
-  playModeNumber: 0,
+  playModeNumber: 1,
   status: 'idle',
 }
 
@@ -23,7 +23,6 @@ export const playerSlice = createSlice({
     },
     playModeNumberAddition: (state) => {
       state.playModeNumber += 1
-      console.log(state.playModeNumber)
     },
   },
 })

@@ -41,18 +41,17 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     setIsShowPlaylist(true)
   }
 
+  const handleClickOnMask: ReactEventHandler<HTMLDivElement> = () => {
+    setIsShowPlaylist(false)
+  }
+
   return (
     <>
       {isShowPlayer && (
         <>
           <audio ref={Audio} src={player[0].url} onCanPlay={handleSongCanPaly}></audio>
           {/* playlist */}
-          <Popup
-            visible={isShowPlaylist}
-            onMaskClick={() => {
-              setIsShowPlaylist(false)
-            }}
-            bodyStyle={{ height: '40vh' }}>
+          <Popup visible={isShowPlaylist} onMaskClick={handleClickOnMask} bodyStyle={{ height: '70vh' }}>
             {/* playlist content */}
             <HomePlaylist />
           </Popup>
