@@ -1,10 +1,15 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
+import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit'
 import counterReducer from '../features/counter/counterSlice'
 import playerReducer from '../features/player/playerSlice'
 
 export function makeStore() {
   return configureStore({
-    reducer: { counter: counterReducer ,player:playerReducer},
+    reducer: { counter: counterReducer, player: playerReducer },
+    middleware: [
+      ...getDefaultMiddleware({
+        serializableCheck: false,
+      }),
+    ],
   })
 }
 

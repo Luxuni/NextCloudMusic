@@ -7,6 +7,9 @@ import { Provider } from 'react-redux'
 import store from '../src/app/store'
 import '../src/styles/global.css'
 import '../src/styles/vars.css'
+import { enableMapSet } from 'immer'
+
+enableMapSet()
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode

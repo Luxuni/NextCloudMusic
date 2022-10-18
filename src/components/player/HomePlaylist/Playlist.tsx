@@ -1,14 +1,15 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { useAppSelector } from '../../../app/hooks'
-import { selectPlayer } from '../../../features/player/playerSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { removeOneSongFromPlayer, selectPlayer } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
 
 const Playlist: NextComponentType = () => {
+  const dispatch = useAppDispatch()
   const playlist = useAppSelector(selectPlayer)
 
   const handleDeleteOneSongInPlaylist = (SongMessage: DailySongsType) => {
-    console.log(SongMessage)
+    dispatch(removeOneSongFromPlayer(SongMessage))
   }
 
   return (

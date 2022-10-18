@@ -1,6 +1,6 @@
 import { Ellipsis, Popup } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { ReactEventHandler, useRef, useState } from 'react'
+import { ReactEventHandler, useEffect, useRef, useState } from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { selectPlayer } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
@@ -30,6 +30,11 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     setIsShowPlaylist(false)
   }
 
+  useEffect(() => {
+    if (!isShowPlaylist) {
+      setIsShowPlaylist(false)
+    }
+  }, [player])
   return (
     <>
       {isShowPlayer && (

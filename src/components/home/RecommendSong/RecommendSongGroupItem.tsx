@@ -1,7 +1,7 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
-import { useAppDispatch } from '../../../app/hooks'
-import { addOneSongToPlayer } from '../../../features/player/playerSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { addOneSongToPlayer, selectPlayerMap } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
 import { getSongUrl } from '../../../services/song/url'
 import MyImage from '../../public/MyImage'
@@ -13,11 +13,17 @@ type RecommendSongGroupItemType = {
 
 const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (props) => {
   const dispatch = useAppDispatch()
+  const playlistMap = useAppSelector(selectPlayerMap)
 
   const handleClickRecommendSongPlayBth = async () => {
-    const res = await getSongUrl({ id: props.data.id })
-    props.data.url = res.data.data[0].url
-    dispatch(addOneSongToPlayer(props.data)) // add to playlist
+    if (!playlistMap.has(props.data.id) && !props.data.url) {
+      const res = await getSongUrl({ id: props.data.id })
+      props.data.url = res.data.data[0].url
+      dispatch(addOneSongToPlayer(props.data))
+    } else if (!playlistMap.has(props.data.id)) {
+      dispatch(addOneSongToPlayer(props.data))
+    }
+    // add to playlist
   }
 
   return (
