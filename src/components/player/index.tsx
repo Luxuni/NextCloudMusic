@@ -5,6 +5,7 @@ import { useAppSelector } from '../../app/hooks'
 import { selectPlayer } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
 import HomePlaylist from './HomePlaylist'
+import MyAudio, { MyAudioRefType } from './MyAudio'
 
 type PlayPropsType = {
   bottom: string
@@ -12,27 +13,11 @@ type PlayPropsType = {
 
 const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
   const player = useAppSelector(selectPlayer)
-
   const isShowPlayer = player.length > 0
-  //Play button state
+
+  //MyAudio state
   const [isPlay, setIsPlay] = useState(false)
-  const Audio = useRef<null | HTMLAudioElement>(null)
-
-  const makeAudioPlay = (target: EventTarget & HTMLAudioElement) => {
-    target.play()
-    setIsPlay(true)
-  }
-
-  const makeAudioPause = (target: EventTarget & HTMLAudioElement) => {
-    if (!target.paused) {
-      target.pause()
-      setIsPlay(false)
-    }
-  }
-
-  const handleSongCanPaly: ReactEventHandler<HTMLAudioElement> = (e) => {
-    makeAudioPlay(e.currentTarget)
-  }
+  const MyAudioRef = useRef<MyAudioRefType | null>(null)
 
   //playlist btn click --> playlist popup
   const [isShowPlaylist, setIsShowPlaylist] = useState(false)
@@ -49,7 +34,13 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     <>
       {isShowPlayer && (
         <>
-          <audio ref={Audio} src={player[0].url} onCanPlay={handleSongCanPaly}></audio>
+          {/* <audio ref={Audio} src={player[0].url} onCanPlay={handleSongCanPaly}></audio> */}
+          <MyAudio
+            ref={(ref) => (MyAudioRef.current = ref)}
+            isPlay={isPlay}
+            setIsPlay={setIsPlay}
+            src={player[0].url!}
+          />
           {/* playlist */}
           <Popup visible={isShowPlaylist} onMaskClick={handleClickOnMask} bodyStyle={{ height: '70vh' }}>
             {/* playlist content */}
@@ -78,7 +69,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 <div
                   className="h-full aspect-square flex items-center justify-center"
                   onClick={() => {
-                    makeAudioPause(Audio.current!)
+                    setIsPlay(false)
                   }}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path
@@ -93,7 +84,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 <div
                   className="h-full aspect-square flex items-center justify-center"
                   onClick={() => {
-                    makeAudioPlay(Audio.current!)
+                    setIsPlay(true)
                   }}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path
