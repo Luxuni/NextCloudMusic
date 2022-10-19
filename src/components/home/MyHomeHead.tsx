@@ -1,11 +1,14 @@
-import { SearchBar, Skeleton } from 'antd-mobile'
-import { AudioOutline, UnorderedListOutline } from 'antd-mobile-icons'
+import { Popup, SearchBar, Skeleton } from 'antd-mobile'
+import { NextComponentType } from 'next'
 import { useRouter } from 'next/router'
-import { NextPageWithLayout } from '../../../pages/_app'
+import React from 'react'
 import { getSearchDefault } from '../../services/search'
+import UserMessages from '../UserMessages'
 
-const MyHomeHead: NextPageWithLayout = () => {
+const MyHomeHead: NextComponentType = () => {
   const router = useRouter()
+
+  const [isHomePopupShow, setIsHomePopupShow] = React.useState(false)
 
   const { data, isLoading, isError } = getSearchDefault()
   if (isLoading) return <Skeleton animated style={{ height: '3rem', borderRadius: '1rem' }} />
@@ -14,10 +17,27 @@ const MyHomeHead: NextPageWithLayout = () => {
   const handleSearchBarFocus = () => {
     router.push('/search')
   }
-
   return (
     <>
-      <div className="w-1/6 flex items-center justify-center">
+      <Popup
+        visible={isHomePopupShow}
+        onMaskClick={() => {
+          // close popup
+          setIsHomePopupShow(false)
+        }}
+        position="left"
+        bodyStyle={{ width: '80vw' }}>
+        {/* userMessages */}
+        <div className="p-4">
+          <UserMessages />
+        </div>
+      </Popup>
+      <div
+        className="w-1/6 flex items-center justify-center"
+        onClick={() => {
+          // show popup
+          setIsHomePopupShow(true)
+        }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

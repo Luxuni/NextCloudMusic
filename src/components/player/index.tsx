@@ -1,6 +1,6 @@
+import { useUpdateEffect } from 'ahooks'
 import { DotLoading, Ellipsis, Popup } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { useEffect } from 'react'
 import { ReactEventHandler, useRef, useState } from 'react'
 import { useAppSelector } from '../../app/hooks'
 import { selectPlayer, selectPlayMode } from '../../features/player/playerSlice'
@@ -69,14 +69,14 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     ],
   ])
 
-  const handleSongOnEnded: ReactEventHandler<HTMLAudioElement> = (e) => {
+  const handleSongOnEnded: ReactEventHandler<HTMLAudioElement> = () => {
     handlePlayModeMap.get(playMode)!()
   }
 
   // handle loading
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setIsLoading(true)
   }, [player[playPointer].url])
   return (

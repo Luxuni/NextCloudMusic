@@ -6,6 +6,7 @@ specifiers:
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
+  ahooks: ^3.7.2
   animate.css: ^4.1.1
   antd: ^4.23.4
   antd-mobile: ^5.24.0
@@ -29,6 +30,7 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.7.0_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.8.6_kuo2ie247izvzll3jejufdtq3q
+  ahooks: 3.7.2_react@18.2.0
   animate.css: 4.1.1
   antd: 4.23.4_biqbaboplfbrettd7655fr4n2y
   antd-mobile: 5.24.0_biqbaboplfbrettd7655fr4n2y
@@ -424,8 +426,8 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks/3.7.1_react@18.2.0:
-    resolution: {integrity: sha512-9fooKjhScNyJaIPnlWd13LkY1gQYqv3BqwSA9ynHg1ZUtDqAICuCRoedV97ylrEL6QqI4zeq3bO3lQxkfWVNcg==}
+  /ahooks/3.7.2_react@18.2.0:
+    resolution: {integrity: sha512-nJPsQJcmJnGaNXiqgZdfO7UMs+o926LQg6VyDYt2vzKhXU8Ze/U87NsA/FeIvlIZB0rQr/j7uotFb1bGPp627A==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -461,7 +463,7 @@ packages:
       '@floating-ui/dom': 1.0.2
       '@react-spring/web': 9.5.5_biqbaboplfbrettd7655fr4n2y
       '@use-gesture/react': 10.2.17_react@18.2.0
-      ahooks: 3.7.1_react@18.2.0
+      ahooks: 3.7.2_react@18.2.0
       antd-mobile-icons: 0.3.0
       antd-mobile-v5-count: 1.0.1
       big.js: 6.2.1

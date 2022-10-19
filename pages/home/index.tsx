@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import MySwiper from '../../src/components/home/HomeSwiper'
 import IconButtonSet from '../../src/components/home/IconButtonSet'
 import MyHomeHead from '../../src/components/home/MyHomeHead'
@@ -8,7 +8,7 @@ import NavLayout from '../../src/components/layout/nav-layout'
 import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
 import { NextPageWithLayout } from '../_app'
 
-const HomePage: NextPageWithLayout<{ children: React.ReactNode }> = ({ children }) => {
+const HomePage: NextPageWithLayout = () => {
   return (
     <div className="flex flex-col">
       {/* search box */}
