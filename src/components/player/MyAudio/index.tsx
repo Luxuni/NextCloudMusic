@@ -11,6 +11,7 @@ const MyAudio = React.forwardRef<
   {
     isPlay: boolean
     setIsPlay: Dispatch<SetStateAction<boolean>>
+    setIsLoading: Dispatch<SetStateAction<boolean>>
     src: string
     handleSongOnEnded: React.ReactEventHandler<HTMLAudioElement>
   }
@@ -41,6 +42,7 @@ const MyAudio = React.forwardRef<
   }
 
   const handleSongCanPaly: ReactEventHandler<HTMLAudioElement> = (e) => {
+    props.setIsLoading(false)
     makeAudioPlay(e.currentTarget)
   }
 
@@ -62,8 +64,9 @@ const MyAudio = React.forwardRef<
     <audio
       ref={(ref) => (Audio.current = ref)}
       src={props.src}
-      onCanPlay={handleSongCanPaly}
-      onEnded={props.handleSongOnEnded}></audio>
+      onCanPlayThrough={handleSongCanPaly}
+      onEnded={props.handleSongOnEnded}
+    />
   )
 })
 export default MyAudio
