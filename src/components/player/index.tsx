@@ -2,7 +2,7 @@ import { Ellipsis, Popup } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { ReactEventHandler, useEffect, useRef, useState } from 'react'
 import { useAppSelector } from '../../app/hooks'
-import { selectPlayer } from '../../features/player/playerSlice'
+import { selectPlayer, selectPlayMode } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
 import HomePlaylist from './HomePlaylist'
 import MyAudio, { MyAudioRefType } from './MyAudio'
@@ -30,11 +30,47 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     setIsShowPlaylist(false)
   }
 
+  // handle play pointer
+  const [playPointer, setPlayPointer] = useState(0)
+  // handle song on ended
+  const playMode = useAppSelector(selectPlayMode)
+
+  const handlePlayModeMap = new Map([
+    [
+      'loop',
+      () => {
+        if (playPointer === player.length - 1) {
+          setPlayPointer(0)
+        } else {
+          setPlayPointer(playPointer + 1)
+        }
+      },
+    ],
+    [
+      'random',
+      () => {
+        const randomNum = Math.floor(Math.random() * player.length)
+        setPlayPointer(randomNum)
+      },
+    ],
+    [
+      'single',
+      () => {
+        setPlayPointer(playPointer)
+      },
+    ],
+  ])
+
+  const handleSongOnEnded: ReactEventHandler<HTMLAudioElement> = (e) => {
+    handlePlayModeMap.get(playMode)!()
+    MyAudioRef.current!.makeAudioPlay(e.currentTarget)
+  }
+
   useEffect(() => {
-    if (!isShowPlaylist) {
+    if (player.length === 0) {
       setIsShowPlaylist(false)
     }
-  }, [player])
+  }, [player.length])
   return (
     <>
       {isShowPlayer && (
@@ -44,7 +80,8 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             ref={(ref) => (MyAudioRef.current = ref)}
             isPlay={isPlay}
             setIsPlay={setIsPlay}
-            src={player[0].url!}
+            src={player[playPointer].url!}
+            handleSongOnEnded={handleSongOnEnded}
           />
           {/* playlist */}
           <Popup visible={isShowPlaylist} onMaskClick={handleClickOnMask} bodyStyle={{ height: '70vh' }}>

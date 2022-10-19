@@ -40,4 +40,6 @@ export const selectPlayerMap = (state: AppState) => state.player.value
 
 export const selectPlayModeNumber = (state: AppState) => state.player.playModeNumber
 
+export const selectPlayMode = (state: AppState) => ['loop', 'random', 'single'][(state.player.playModeNumber % 3) - 1]
+
 export default playerSlice.reducer

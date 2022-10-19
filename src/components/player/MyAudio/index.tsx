@@ -8,7 +8,12 @@ export type MyAudioRefType = {
 
 const MyAudio = React.forwardRef<
   MyAudioRefType,
-  { isPlay: boolean; setIsPlay: Dispatch<SetStateAction<boolean>>; src: string }
+  {
+    isPlay: boolean
+    setIsPlay: Dispatch<SetStateAction<boolean>>
+    src: string
+    handleSongOnEnded: React.ReactEventHandler<HTMLAudioElement>
+  }
 >((props, ref) => {
   const Audio = useRef<null | HTMLAudioElement>(null)
 
@@ -53,6 +58,12 @@ const MyAudio = React.forwardRef<
     makeAudioPause,
   }))
 
-  return <audio ref={(ref) => (Audio.current = ref)} src={props.src} onCanPlay={handleSongCanPaly}></audio>
+  return (
+    <audio
+      ref={(ref) => (Audio.current = ref)}
+      src={props.src}
+      onCanPlay={handleSongCanPaly}
+      onEnded={props.handleSongOnEnded}></audio>
+  )
 })
 export default MyAudio

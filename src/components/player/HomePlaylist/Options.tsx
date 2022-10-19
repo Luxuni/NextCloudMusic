@@ -71,6 +71,7 @@ const Options: NextComponentType = () => {
       yield playModes[playModeNumber % playModes.length]
     }
   }
+
   const playModeGenerator = ReturnNextPlayMode()
 
   const [PlayModeIcon, setPlayModeIcon] = React.useState('loop')
