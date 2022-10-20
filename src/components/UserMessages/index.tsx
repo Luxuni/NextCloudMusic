@@ -28,6 +28,10 @@ const UserMessages: NextComponentType = () => {
       <div className="mt-4 shrink-0">
         <Menu contentMap={otherMap} title="其他" />
       </div>
+      {/* login out */}
+      <div className="mt-4">
+        <button className="btn btn-active btn-secondary w-full">退出登陆</button>
+      </div>
     </div>
   )
 }

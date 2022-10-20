@@ -93,18 +93,22 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             setIsLoading={setIsLoading}
           />
           {/* playlist */}
-          <Popup visible={isShowPlaylist} onMaskClick={handleClickOnMask} bodyStyle={{ height: '70vh' }}>
+          <Popup
+            visible={isShowPlaylist}
+            onMaskClick={handleClickOnMask}
+            bodyStyle={{ height: '70vh', borderTopLeftRadius: '2rem', borderTopRightRadius: '2rem' }}>
             {/* playlist content */}
             <HomePlaylist />
           </Popup>
           {isLoading ? (
-            <div className={'flex sticky w-full h-12 bg-gray-200 justify-around items-center ' + props.bottom}>
+            <div
+              className={'flex sticky w-full h-12 bg-gray-200 justify-around items-center shadow-xl ' + props.bottom}>
               <DotLoading />
               <DotLoading />
               <DotLoading />
             </div>
           ) : (
-            <div className={'flex sticky w-full h-12 bg-gray-200 ' + props.bottom}>
+            <div className={'flex sticky w-full h-12 bg-gray-200 shadow-xl ' + props.bottom}>
               {/* left */}
               <div className="h-full flex items-center justify-around w-3/5">
                 {/* image */}
