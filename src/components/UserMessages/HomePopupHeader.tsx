@@ -8,7 +8,7 @@ type HomePopupHeaderProps = {
 
 const HomePopupHeader: NextComponentType<{}, {}, HomePopupHeaderProps> = (props) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center bg-gray-300 pl-4 pr-4 shadow-xl rounded-2xl h-12">
       <div className="flex items-center">
         {/* user image */}
         <MyImage src={props.avatarUrl} height="2rem" width="2rem" borderRadius={'10rem'} />
@@ -27,7 +27,7 @@ const HomePopupHeader: NextComponentType<{}, {}, HomePopupHeaderProps> = (props)
         </div>
       </div>
       {/* scan icon */}
-      <div className="w-1/5 h-full flex justify-end">
+      <div className="w-1/5 h-full flex justify-end items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

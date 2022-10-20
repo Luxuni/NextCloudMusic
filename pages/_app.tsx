@@ -24,7 +24,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     themeChange(false)
-    document.documentElement.setAttribute('data-theme', 'valentine')
+    // document.documentElement.setAttribute('data-theme', 'valentine')
     // 👆 false parameter is required for react project
   }, [])
   return <Provider store={store}>{getLayout(<Component {...pageProps}></Component>)}</Provider>
