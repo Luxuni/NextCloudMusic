@@ -37,7 +37,7 @@ export type RecommendDailyListType = {
     id: number
     name: string
     picUrl: string
-    playCount: number
+    playcount: number
     trackCount: number
   }[]
 }

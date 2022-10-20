@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { getUserLoadingStatus } from '../../services/user'
 import HomePopupHeader from './HomePopupHeader'
@@ -7,7 +8,13 @@ import VipTag from './VipTag'
 
 const UserMessages: NextComponentType = () => {
   const { data, isLoading, isError } = getUserLoadingStatus()
-  if (isLoading) return <div>loading ...</div>
+  if (isLoading)
+    return (
+      <>
+        <Skeleton.Title animated />
+        <Skeleton.Paragraph lineCount={10} animated />
+      </>
+    )
   return (
     <div className="flex flex-col ">
       {/* top-->username and scan code icon */}

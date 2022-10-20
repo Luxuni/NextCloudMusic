@@ -41,10 +41,10 @@ const XShow: NextPageWithLayout<XShowType> = (props) => {
             <YShowItem request={getRecommendDailyList} />
           </div>
         )}
-        {data.result.map((item: any, index: number) => {
+        {data.result.map((item , index: number) => {
           return (
             <div key={item.id} className={index === data.result.length - 1 ? 'shrink-0' : 'shrink-0 pr-4'}>
-              <ShowItem image={item.picUrl} name={item.name} />
+              <ShowItem image={item.picUrl} name={item.name} data={item}/>
             </div>
           )
         })}
