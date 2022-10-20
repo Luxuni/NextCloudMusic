@@ -1,6 +1,6 @@
 import { NextComponentType } from 'next'
 
-const Menu: NextComponentType<{}, {}, { contentMap: Map<number, (children: JSX.Element) => JSX.Element> }> = (
+const Menu: NextComponentType<{}, {}, { contentMap: Map<string, (children: JSX.Element) => JSX.Element> }> = (
   props,
 ) => {
   return (

@@ -20,6 +20,7 @@ const MySwiper: NextPageWithLayout = () => {
 
   return (
     <Swiper
+      className="shadow-xl shadow-slate-400"
       loop
       autoplay
       style={{

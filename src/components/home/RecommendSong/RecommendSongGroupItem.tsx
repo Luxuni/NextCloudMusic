@@ -32,8 +32,8 @@ const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (
       <div className="flex h-full w-4/5">
         {/* left */}
         {/* image */}
-        <div className="h-full aspect-square">
-          <MyImage src={props.data.al.picUrl} />
+        <div className="h-full aspect-square shadow-xl shadow-slate-400 rounded-lg">
+          <MyImage src={props.data.al.picUrl} borderRadius=".5rem" />
         </div>
         {/* right */}
         <div className="pl-4 w-2/3">

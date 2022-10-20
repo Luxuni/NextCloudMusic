@@ -12,11 +12,11 @@ const HomePage: NextPageWithLayout = () => {
   return (
     <div className="flex flex-col">
       {/* search box */}
-      <div className="sticky top-0 z-50 h-12 flex bg-gray-200">
+      <div className="sticky top-0 z-50 h-12 flex bg-gray-200 shadow-xl">
         <MyHomeHead />
       </div>
       {/* swiper */}
-      <div className="h-60 mt-4 pl-4 pr-4">
+      <div className="h-60 mt-4 pl-4 pr-4 ">
         <MySwiper />
       </div>
       {/* icon button set */}

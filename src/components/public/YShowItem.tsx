@@ -37,6 +37,7 @@ const YShowItem: NextPageWithLayout<YShowItemType> = (props) => {
   return (
     <div className="h-full">
       <Swiper
+        className="shadow-xl shadow-slate-400"
         loop
         autoplay
         direction="vertical"

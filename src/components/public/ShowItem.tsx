@@ -10,7 +10,7 @@ type ShowItemType = {
 const ShowItem: NextPageWithLayout<ShowItemType> = (props) => {
   return (
     <>
-      <div className="h-40 aspect-square">
+      <div className="h-40 aspect-square shadow-xl shadow-slate-300">
         <MyImage src={props.image} borderRadius={8} />
       </div>
       <Ellipsis className="w-40 mt-4" direction="end" content={props.name} />
