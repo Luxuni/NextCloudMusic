@@ -77,7 +77,7 @@ request.interceptors.response.use(
     return config
   },
   (err: any) => {
-    handleNetworkError(err.response?.status, err.response.data)
+    handleNetworkError(err.response?.status, err.response?.data)
     return Promise.reject(err.response)
   },
 )

@@ -12,7 +12,7 @@ const UserMessages: NextComponentType = () => {
     return (
       <>
         <Skeleton.Title animated />
-        <Skeleton.Paragraph lineCount={10} animated />
+        <Skeleton.Paragraph lineCount={30} animated />
       </>
     )
   return (
@@ -20,24 +20,24 @@ const UserMessages: NextComponentType = () => {
       {/* top-->username and scan code icon */}
       <HomePopupHeader avatarUrl={data.data.profile.avatarUrl} nickname={data.data.profile.nickname} />
       {/* VIP */}
-      <div className="mt-4">
+      <div className="mt-8">
         <VipTag />
       </div>
       {/* center */}
-      <div className="mt-4">
+      <div className="mt-8">
         <Menu contentMap={menuCenterMap} />
       </div>
       {/* music server */}
-      <div className="mt-4">
+      <div className="mt-8">
         <Menu contentMap={musicServerMap} title="音乐服务" />
       </div>
       {/* other */}
-      <div className="mt-4 shrink-0">
+      <div className="mt-8 shrink-0">
         <Menu contentMap={otherMap} title="其他" />
       </div>
       {/* login out */}
-      <div className="mt-4">
-        <button className="btn btn-active btn-secondary w-full">退出登陆</button>
+      <div className="mt-8">
+        <button className="btn btn-active btn-secondary w-full shadow-xl">退出登陆</button>
       </div>
     </div>
   )
