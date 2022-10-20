@@ -28,7 +28,7 @@ const MyHomeHead: NextComponentType = () => {
         position="left"
         bodyStyle={{ width: '80vw' }}>
         {/* userMessages */}
-        <div className="p-4">
+        <div className="p-4 h-full overflow-y-scroll">
           <UserMessages />
         </div>
       </Popup>
