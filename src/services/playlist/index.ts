@@ -23,7 +23,16 @@ type PlaylistDetailType = {
     subscribers: {}[]
     tags: string[]
     trackIds: {}[]
-    tracks: {}[]
+    tracks: {
+      name: string
+      id: number
+      mv: number
+      ar: {
+        name: string
+        id: number
+      }[]
+    }[]
+    trackCount: number
   }
   privileges: {}
 }

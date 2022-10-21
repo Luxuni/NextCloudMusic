@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@ant-design/icons': ^4.7.0
   '@reduxjs/toolkit': ^1.8.6
+  '@types/lodash': ^4.14.186
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -17,6 +18,7 @@ specifiers:
   express: ^4.18.2
   http-proxy-middleware: ^2.0.6
   immer: ^9.0.15
+  lodash: ^4.17.21
   next: latest
   next-redux-wrapper: ^8.0.0
   next-transpile-modules: ^9.0.0
@@ -32,6 +34,7 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.7.0_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.8.6_kuo2ie247izvzll3jejufdtq3q
+  '@types/lodash': 4.14.186
   ahooks: 3.7.2_react@18.2.0
   animate.css: 4.1.1
   antd: 4.23.4_biqbaboplfbrettd7655fr4n2y
@@ -42,6 +45,7 @@ dependencies:
   express: 4.18.2
   http-proxy-middleware: 2.0.6
   immer: 9.0.15
+  lodash: 4.17.21
   next: 12.3.1_biqbaboplfbrettd7655fr4n2y
   next-redux-wrapper: 8.0.0_wnml2u2rjvrq3plu2g7enler3e
   react: 18.2.0
@@ -356,6 +360,10 @@ packages:
 
   /@types/js-cookie/2.2.7:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
+    dev: false
+
+  /@types/lodash/4.14.186:
+    resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==}
     dev: false
 
   /@types/node/18.0.3:

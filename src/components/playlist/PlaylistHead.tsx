@@ -1,8 +1,12 @@
-import { LeftOutline } from 'antd-mobile-icons'
+import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useRouter } from 'next/router'
 
-type PlaylistHeadProps = {}
+type PlaylistHeadProps = {
+  isShowName: boolean
+  name: string
+}
+
 const PlaylistHead: NextComponentType<{}, {}, PlaylistHeadProps> = (props) => {
   const router = useRouter()
 
@@ -23,7 +27,19 @@ const PlaylistHead: NextComponentType<{}, {}, PlaylistHeadProps> = (props) => {
         </svg>
       </div>
       <div className="w-1/2 flex flex-col justify-center">
-        <h1 className="text-center text-xl text-white font-bold">歌单</h1>
+        {/* {props.isShowName ? (
+          <h1 className="text-center text-xl text-white font-bold animated bounceInDown backOutUp">
+            {props.name}
+          </h1>
+        ) : (
+          <h1 className="text-center text-xl text-white font-bold animated bounceInDown backOutUp">歌单</h1>
+        )} */}
+        {props.isShowName && (
+          <h1 className="text-center text-xl text-white font-bold animated fadeInDown">
+            <Ellipsis content={props.name} />
+          </h1>
+        )}
+        {!props.isShowName && <h1 className="text-center text-xl text-white font-bold animated fadeInDown">歌单</h1>}
       </div>
       <div className="w-1/3 flex items-center justify-center">
         {/* search icon */}

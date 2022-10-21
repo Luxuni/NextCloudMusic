@@ -1,6 +1,8 @@
 import { NextComponentType } from 'next'
-
-const PlayAll: NextComponentType = () => {
+type PlayAllProps = {
+  trackCount: number
+}
+const PlayAll: NextComponentType<{}, {}, PlayAllProps> = (props) => {
   return (
     <div className="w-full flex items-center">
       <div className="w-1/2 flex items-end">
@@ -11,8 +13,9 @@ const PlayAll: NextComponentType = () => {
             clipRule="evenodd"
           />
         </svg>
-        <div className="flex h-full justify-center ml-4">
+        <div className="flex h-full justify-center items-center ml-4">
           <h1 className="font-bold text-lg">播放全部</h1>
+          <span className="text-lg text-gray-400">（{props.trackCount}）</span>
         </div>
       </div>
       <div className="w-1/2 flex justify-end items-center">
