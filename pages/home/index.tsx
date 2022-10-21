@@ -8,7 +8,7 @@ import NavLayout from '../../src/components/layout/nav-layout'
 import { getRecommendList, getRecommendSongs } from '../../src/services/recommendList'
 import { NextPageWithLayout } from '../_app'
 
-const HomePage: NextPageWithLayout = (props) => {
+const HomePage: NextPageWithLayout = () => {
   return (
     <div className="flex flex-col">
       {/* search box */}

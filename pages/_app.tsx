@@ -9,6 +9,7 @@ import { themeChange } from 'theme-change'
 import store from '../src/app/store'
 import '../src/styles/global.css'
 import '../src/styles/vars.css'
+
 enableMapSet()
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

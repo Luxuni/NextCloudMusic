@@ -1,5 +1,6 @@
 import { NextPageWithLayout } from '../../../pages/_app'
 import { Image } from 'antd-mobile'
+// import Image from 'next/image'
 
 type MyImageType = {
   src: string

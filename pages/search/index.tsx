@@ -30,7 +30,7 @@ const SearchPage: NextPageWithLayout = () => {
   )
 }
 
-SearchPage.getLayout = function getLayout(page: ReactElement) {
+SearchPage.getLayout = function getLayout(page) {
   return <NavLayout>{page}</NavLayout>
 }
 
