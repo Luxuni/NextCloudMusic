@@ -1,6 +1,7 @@
 import { Ellipsis } from 'antd-mobile'
 import { useRouter } from 'next/router'
 import NavLayout from '../../src/components/layout/nav-layout'
+import PlayAll from '../../src/components/playlist/PlayAll'
 import PlaylistHead from '../../src/components/playlist/PlaylistHead'
 import PlaylistMessage from '../../src/components/playlist/PlaylistMessage'
 import { getPlaylistDetail } from '../../src/services/playlist'
@@ -85,6 +86,10 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
             </div>
           </div>
         </div>
+      </div>
+      {/* playlist content */}
+      <div className="p-4">
+        <PlayAll />
       </div>
     </div>
   )
