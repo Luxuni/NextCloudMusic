@@ -2,8 +2,8 @@ import { useUpdateEffect } from 'ahooks'
 import { DotLoading, Ellipsis, Popup } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { ReactEventHandler, useRef, useState } from 'react'
-import { useAppSelector } from '../../app/hooks'
-import { selectPlayer, selectPlayMode } from '../../features/player/playerSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { handleSongOnEnded, selectNeedPlayedSong, selectPlayer } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
 import HomePlaylist from './HomePlaylist'
 import MyAudio, { MyAudioRefType } from './MyAudio'
@@ -15,6 +15,8 @@ type PlayPropsType = {
 const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
   const player = useAppSelector(selectPlayer)
   const isShowPlayer = player.length > 0
+  const needPlayedSong = useAppSelector(selectNeedPlayedSong)
+  const dispatch = useAppDispatch()
 
   //MyAudio state
   const [isPlay, setIsPlay] = useState(false)
@@ -31,54 +33,12 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
     setIsShowPlaylist(false)
   }
 
-  // handle play pointer
-  const [playPointer, setPlayPointer] = useState(0)
-  // handle song on ended
-  const playMode = useAppSelector(selectPlayMode)
-
-  const handlePlayModeMap = new Map([
-    [
-      'loop',
-      () => {
-        if (playPointer === player.length - 1) {
-          setPlayPointer(0)
-        } else {
-          setPlayPointer(playPointer + 1)
-        }
-        if (player.length === 1) {
-          MyAudioRef.current?.Audio.current!.load()
-        }
-      },
-    ],
-    [
-      'random',
-      () => {
-        const randomNum = Math.floor(Math.random() * player.length)
-        setPlayPointer(randomNum)
-        if (randomNum === playPointer) {
-          handlePlayModeMap.get('random')!()
-        }
-      },
-    ],
-    [
-      'single',
-      () => {
-        setPlayPointer(playPointer)
-        MyAudioRef.current?.Audio.current!.load()
-      },
-    ],
-  ])
-
-  const handleSongOnEnded: ReactEventHandler<HTMLAudioElement> = () => {
-    handlePlayModeMap.get(playMode)!()
-  }
-
   // handle loading
   const [isLoading, setIsLoading] = useState(true)
 
   useUpdateEffect(() => {
     setIsLoading(true)
-  }, [player[playPointer].url])
+  }, [needPlayedSong?.url])
   return (
     <>
       {isShowPlayer && (
@@ -88,8 +48,10 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             ref={(ref) => (MyAudioRef.current = ref)}
             isPlay={isPlay}
             setIsPlay={setIsPlay}
-            src={player[playPointer].url!}
-            handleSongOnEnded={handleSongOnEnded}
+            src={needPlayedSong.url!}
+            handleSongOnEnded={() => {
+              dispatch(handleSongOnEnded(MyAudioRef.current?.Audio))
+            }}
             setIsLoading={setIsLoading}
           />
           {/* playlist */}
@@ -113,7 +75,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
               <div className="h-full flex items-center justify-around w-3/5">
                 {/* image */}
                 <MyImage
-                  src={player[playPointer].al.picUrl}
+                  src={needPlayedSong.al.picUrl}
                   height="2rem"
                   width="2rem"
                   borderRadius="100%"
@@ -121,10 +83,10 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 />
                 {/* name and at*/}
                 <div className="flex items-center justify-around pl-4">
-                  <Ellipsis direction="end" content={player[playPointer].name} className="pr-4 text-[0.5rem]" />
+                  <Ellipsis direction="end" content={needPlayedSong.name} className="pr-4 text-[0.5rem]" />
                   <Ellipsis
                     direction="end"
-                    content={player[playPointer].ar.map((item) => item.name).join(' ')}
+                    content={needPlayedSong.ar.map((item) => item.name).join(' ')}
                     className="text-[0.5rem]"
                   />
                 </div>

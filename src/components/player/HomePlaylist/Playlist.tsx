@@ -1,21 +1,29 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { removeOneSongFromPlayer, selectPlayer } from '../../../features/player/playerSlice'
+import { removeOneSongFromPlayer, selectPlayer, selectPlayerMap } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
+import { addOneSongAndJumpTo } from '../../playlist/tools'
 
 const Playlist: NextComponentType = () => {
   const dispatch = useAppDispatch()
   const playlist = useAppSelector(selectPlayer)
+  const playListMap = useAppSelector(selectPlayerMap)
 
   const handleDeleteOneSongInPlaylist = (SongMessage: DailySongsType) => {
     dispatch(removeOneSongFromPlayer(SongMessage))
   }
 
+  const handleClickItem = async (item: DailySongsType) => {
+    addOneSongAndJumpTo(item, playListMap, dispatch)
+  }
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {playlist.map((item, index) => (
-        <div className={index === 0 ? 'w-full flex items-center' : 'w-full flex items-center mt-4'} key={item.id}>
+        <div
+          className={index === 0 ? 'w-full flex items-center pt-2 pb-2' : 'w-full flex items-center pt-2 pb-2 mt-4'}
+          key={item.id}
+          onClick={handleClickItem.bind(this, item)}>
           {/* song name */}
           <div className="w-2/5">
             <Ellipsis direction="end" content={item.name} />

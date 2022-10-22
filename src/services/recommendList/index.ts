@@ -57,6 +57,7 @@ export type DailySongsType = {
   name: string
   reason: string
   id: number
+  mv: number
   al: {
     id: number
     name: string

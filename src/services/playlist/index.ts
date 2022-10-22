@@ -1,4 +1,5 @@
 import useRequest, { customizeRequestType } from '..'
+import { DailySongsType } from '../recommendList'
 
 type PlaylistDetailType = {
   code: number
@@ -23,15 +24,7 @@ type PlaylistDetailType = {
     subscribers: {}[]
     tags: string[]
     trackIds: {}[]
-    tracks: {
-      name: string
-      id: number
-      mv: number
-      ar: {
-        name: string
-        id: number
-      }[]
-    }[]
+    tracks: DailySongsType[]
     trackCount: number
   }
   privileges: {}

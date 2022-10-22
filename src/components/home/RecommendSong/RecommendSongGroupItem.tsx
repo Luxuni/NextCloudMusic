@@ -1,9 +1,10 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { addOneSongToPlayer, selectPlayerMap } from '../../../features/player/playerSlice'
+import { addOneSongToPlayer, jumpToSong, selectPlayerMap } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
 import { getSongUrl } from '../../../services/song/url'
+import { addOneSongAndJumpTo } from '../../playlist/tools'
 import MyImage from '../../public/MyImage'
 
 type RecommendSongGroupItemType = {
@@ -16,14 +17,8 @@ const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (
   const playlistMap = useAppSelector(selectPlayerMap)
 
   const handleClickRecommendSongPlayBth = async () => {
-    if (!playlistMap.has(props.data.id) && !props.data.url) {
-      const res = await getSongUrl({ id: props.data.id })
-      props.data.url = res.data.data[0].url
-      dispatch(addOneSongToPlayer(props.data))
-    } else if (!playlistMap.has(props.data.id)) {
-      dispatch(addOneSongToPlayer(props.data))
-    }
-    // add to playlist
+    addOneSongAndJumpTo(props.data, playlistMap, dispatch)
+    // add to playlist and jump to song
   }
 
   return (

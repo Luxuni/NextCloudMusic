@@ -5,7 +5,8 @@ import { selectPlayModeNumber, playModeNumberAddition } from '../../../features/
 
 const PlayModeIconMap = new Map([
   [
-    'loop',
+    // 'loop',
+    0,
     {
       icon: (
         <svg
@@ -24,7 +25,8 @@ const PlayModeIconMap = new Map([
     },
   ],
   [
-    'random',
+    // 'random',
+    1,
     {
       icon: (
         <svg
@@ -43,7 +45,8 @@ const PlayModeIconMap = new Map([
     },
   ],
   [
-    'single',
+    // 'single',
+    2,
     {
       icon: (
         <svg
@@ -64,20 +67,20 @@ const Options: NextComponentType = () => {
   const dispatch = useAppDispatch()
   const playModeNumber = useAppSelector(selectPlayModeNumber)
 
-  function* ReturnNextPlayMode() {
-    const playModes = Array.from(PlayModeIconMap.keys())
+  // 迭代器迭代输出0,1,2
+  const playModeNumberIterator = (function* (num: number) {
+    let i = num
     while (true) {
-      dispatch(playModeNumberAddition())
-      yield playModes[playModeNumber % playModes.length]
+      i = (i + 1) % 3
+      dispatch(playModeNumberAddition(i))
+      yield i
     }
-  }
+  })(playModeNumber)
 
-  const playModeGenerator = ReturnNextPlayMode()
-
-  const [PlayModeIcon, setPlayModeIcon] = React.useState('loop')
+  const [PlayModeIcon, setPlayModeIcon] = React.useState(0)
 
   const handleClickPlayModeOption = () => {
-    setPlayModeIcon(playModeGenerator.next().value!)
+    setPlayModeIcon(playModeNumberIterator.next().value!)
   }
 
   return (

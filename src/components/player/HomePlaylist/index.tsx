@@ -18,7 +18,7 @@ const HomePlaylist: NextComponentType = () => {
       </div>
       {/* option */}
       <Options />
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-scroll">
         <Playlist />
       </div>
     </div>

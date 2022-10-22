@@ -9,6 +9,7 @@ import PlaylistHead from '../../src/components/playlist/PlaylistHead'
 import PlaylistMessage from '../../src/components/playlist/PlaylistMessage'
 import { getPlaylistDetail } from '../../src/services/playlist'
 import { NextPageWithLayout } from '../_app'
+
 const ShowPlaylistPage: NextPageWithLayout = () => {
   const router = useRouter()
   const messageRef = createRef<HTMLDivElement>()
@@ -26,7 +27,6 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
   const { id } = router.query as { id: string }
   const { data, isLoading, isError } = getPlaylistDetail({ id })
   if (isLoading) return <div>loading...</div>
-
   const observer = new IntersectionObserver((entries) => {
     _.debounce(
       () => {

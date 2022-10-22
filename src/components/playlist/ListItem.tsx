@@ -1,17 +1,10 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
+import { DailySongsType } from '../../services/recommendList'
 
 type ListItemProps = {
   index: number
-  track: {
-    name: string
-    id: number
-    mv: number
-    ar: {
-      name: string
-      id: number
-    }[]
-  }
+  track: DailySongsType
 }
 
 const ListItem: NextComponentType<{}, {}, ListItemProps> = (props) => {
