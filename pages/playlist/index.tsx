@@ -30,7 +30,7 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
   const observer = new IntersectionObserver((entries) => {
     _.debounce(
       () => {
-        if (entries[0].intersectionRatio > 0) {
+        if (entries[0].intersectionRatio) {
           setIsShowName(false)
         } else {
           setIsShowName(true)

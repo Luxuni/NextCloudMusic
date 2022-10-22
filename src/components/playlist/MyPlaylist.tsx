@@ -1,5 +1,6 @@
-import { InfiniteScroll, List } from 'antd-mobile'
+import { List } from 'antd-mobile'
 import { NextComponentType } from 'next'
+import ListItem from './ListItem'
 type MyPlaylistProps = {
   tracks: {
     name: string
@@ -16,7 +17,9 @@ const MyPlaylist: NextComponentType<{}, {}, MyPlaylistProps> = (props) => {
     <>
       <List>
         {props.tracks.map((item, index) => (
-          <List.Item key={item.id}>{item.name}</List.Item>
+          <List.Item key={item.id}>
+            <ListItem index={index + 1} track={item} />
+          </List.Item>
         ))}
       </List>
       {/* <InfiniteScroll loadMore={loadMore} hasMore={hasMore} /> */}
