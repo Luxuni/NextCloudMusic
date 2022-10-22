@@ -23,7 +23,11 @@ const Playlist: NextComponentType = () => {
         <div
           className={index === 0 ? 'w-full flex items-center pt-2 pb-2' : 'w-full flex items-center pt-2 pb-2 mt-4'}
           key={item.id}
-          onClick={handleClickItem.bind(this, item)}>
+          onClick={(e) => {
+            //阻止事件冒泡
+            e.stopPropagation()
+            handleClickItem(item)
+          }}>
           {/* song name */}
           <div className="w-2/5">
             <Ellipsis direction="end" content={item.name} />
@@ -32,7 +36,12 @@ const Playlist: NextComponentType = () => {
           <div className="w-2/5">
             <Ellipsis direction="end" content={item.ar.map((item) => item.name).join(' ')} />
           </div>
-          <div className="w-1/5 flex items-center justify-end" onClick={handleDeleteOneSongInPlaylist.bind(this, item)}>
+          <div
+            className="w-1/5 flex items-center justify-end"
+            onClick={(e) => {
+              e.stopPropagation()
+              handleDeleteOneSongInPlaylist(item)
+            }}>
             {/* option delete */}
             <div>
               <svg

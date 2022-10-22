@@ -34,10 +34,6 @@ export const playerSlice = createSlice({
     },
 
     handleSongOnEnded: (state, action: PayloadAction<MutableRefObject<HTMLAudioElement | null> | undefined>) => {
-      console.log(state.playModeNumber)
-
-      console.log(['loop', 'random', 'single'][state.playModeNumber])
-
       handlePlayModeMap.get(['loop', 'random', 'single'][state.playModeNumber])!(
         state,
         Array.from(state.value.values()),
@@ -46,6 +42,9 @@ export const playerSlice = createSlice({
     },
 
     removeOneSongFromPlayer: (state, action: PayloadAction<DailySongsType>) => {
+      if (state.playPointer === state.value.size - 1) {
+        state.playPointer = 0
+      }
       state.value.delete(action.payload.id)
     },
 
