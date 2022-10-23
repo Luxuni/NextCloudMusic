@@ -1,7 +1,7 @@
 import useRequest, { customizeRequestType } from '..'
 import { DailySongsType } from '../recommendList'
 
-type PlaylistDetailType = {
+export type PlaylistDetailType = {
   code: number
   playlist: {
     algTags: string[]

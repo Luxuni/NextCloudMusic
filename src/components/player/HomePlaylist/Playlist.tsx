@@ -24,7 +24,6 @@ const Playlist: NextComponentType = () => {
           className={index === 0 ? 'w-full flex items-center pt-2 pb-2' : 'w-full flex items-center pt-2 pb-2 mt-4'}
           key={item.id}
           onClick={(e) => {
-            //阻止事件冒泡
             e.stopPropagation()
             handleClickItem(item)
           }}>
@@ -39,6 +38,7 @@ const Playlist: NextComponentType = () => {
           <div
             className="w-1/5 flex items-center justify-end"
             onClick={(e) => {
+              //阻止事件冒泡
               e.stopPropagation()
               handleDeleteOneSongInPlaylist(item)
             }}>

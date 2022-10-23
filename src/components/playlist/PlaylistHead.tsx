@@ -27,13 +27,6 @@ const PlaylistHead: NextComponentType<{}, {}, PlaylistHeadProps> = (props) => {
         </svg>
       </div>
       <div className="w-1/2 flex flex-col justify-center">
-        {/* {props.isShowName ? (
-          <h1 className="text-center text-xl text-white font-bold animated bounceInDown backOutUp">
-            {props.name}
-          </h1>
-        ) : (
-          <h1 className="text-center text-xl text-white font-bold animated bounceInDown backOutUp">歌单</h1>
-        )} */}
         {props.isShowName && (
           <h1 className="text-center text-xl text-white font-bold animated fadeInDown">
             <Ellipsis content={props.name} />
