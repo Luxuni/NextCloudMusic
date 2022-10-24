@@ -35,6 +35,7 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
         <Skeleton.Paragraph lineCount={30} animated />
       </div>
     )
+
   const observer = new IntersectionObserver((entries) => {
     _.debounce(
       () => {

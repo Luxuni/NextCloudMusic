@@ -15,7 +15,7 @@ const BigCover: NextComponentType<{}, {}, BigCoverProps> = (props) => {
   return (
     <div
       style={{ backgroundImage: `url(${data.playlist.coverImgUrl})` }}
-      className={'h-screen w-screen fixed top-0 left-0 ' + props.className}>
+      className={'h-screen w-screen ' + props.className}>
       <div
         className="h-screen w-screen backdrop-blur-xl flex flex-col"
         onClick={(e) => {

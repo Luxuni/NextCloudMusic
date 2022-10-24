@@ -2,11 +2,15 @@ import { SearchBar, Skeleton } from 'antd-mobile'
 import { LeftOutline } from 'antd-mobile-icons'
 import { SearchBarRef } from 'antd-mobile/es/components/search-bar'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { NextPageWithLayout } from '../../../pages/_app'
 import { getSearchDefault } from '../../services/search'
 
-const MySearchHead: NextPageWithLayout = () => {
+type MySearchHeadProps = {
+  setIsShowSearchResult: Dispatch<SetStateAction<boolean>>
+}
+
+const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
   const [value, setValue] = useState('')
   const SearchBarRef = useRef<SearchBarRef>(null)
   const router = useRouter()
@@ -15,7 +19,8 @@ const MySearchHead: NextPageWithLayout = () => {
     if (SearchBarRef.current) {
       SearchBarRef.current.focus()
     }
-  }, [SearchBarRef])
+    console.log(value)
+  }, [SearchBarRef, value])
 
   const { data, isLoading, isError } = getSearchDefault()
   if (isLoading) return <Skeleton animated style={{ height: '3rem', borderRadius: '1rem' }} />
