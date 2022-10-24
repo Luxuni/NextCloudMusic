@@ -1,11 +1,12 @@
 import { useDebounceEffect } from 'ahooks'
+import { List } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { selectPlayerMap } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
 import { getSearchResult } from '../../../services/search'
-import SearchResultItem from './Item'
+import ListItem from '../../playlist/ListItem'
 
 type SearchSuggestProps = {
   searchValue: string
@@ -25,7 +26,6 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
   }
 
   useDebounceEffect(() => {
-    console.log(props.searchValue)
     awaitGetSearchResult()
   }, [props.searchValue])
 
@@ -44,9 +44,13 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
           className={`${
             player.size === 0 ? 'h-[calc(100vh-4rem)]' : 'h-[calc(100vh-7rem)]'
           } flex flex-col p-4 overflow-y-scroll`}>
-          {searchResult.map((item, index) => (
-            <SearchResultItem key={item.id} data={item} className={index === 0 ? '' : 'mt-4'} />
-          ))}
+          <List>
+            {searchResult.map((item, index) => (
+              <List.Item key={item.id} arrow={false}>
+                <ListItem index={index + 1} track={item} />
+              </List.Item>
+            ))}
+          </List>
         </div>
       )}
     </>
