@@ -3,32 +3,30 @@ import { NextComponentType } from 'next'
 import { useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { selectPlayerMap } from '../../../features/player/playerSlice'
-import { DailySongsType } from '../../../services/recommendList'
-import { getSearchResult } from '../../../services/search'
-import SearchResultItem from './Item'
+import { getSearchSuggest } from '../../../services/search'
+import SearchSuggestItem from './Item'
 
 type SearchSuggestProps = {
   searchValue: string
+  onClick: (keyword: string) => void
 }
 
-const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
+const SearchSuggest: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
   const [isSearchLoading, setIsSearchLoading] = useState(false)
-  const [searchResult, setSearchResult] = useState<DailySongsType[]>([])
-  const player = useAppSelector(selectPlayerMap)
+  const [searchSuggest, setSearchSuggest] = useState<{ keyword: string }[]>([])
 
-  const awaitGetSearchResult = async () => {
+  const awaitGetSearchSuggest = async () => {
     setIsSearchLoading(true)
-    const res = await getSearchResult({ keywords: props.searchValue, limit: 20 })
-    console.log(res)
-    setSearchResult(res.data.result.songs)
+    const res = await getSearchSuggest({ keywords: props.searchValue, type: 'mobile' })
+    setSearchSuggest(res.data.result.allMatch)
     setIsSearchLoading(false)
   }
 
   useDebounceEffect(() => {
-    console.log(props.searchValue)
-    awaitGetSearchResult()
+    awaitGetSearchSuggest()
   }, [props.searchValue])
 
+  const player = useAppSelector(selectPlayerMap)
   return (
     <>
       {isSearchLoading ? (
@@ -41,8 +39,13 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
         </div>
       ) : (
         <div className={`${player.size === 0 ? '' : 'h-[calc(100vh-7rem)]'} flex flex-col p-4`}>
-          {searchResult.map((item, index) => (
-            <SearchResultItem key={item.id} data={item} className={index === 0 ? '' : 'mt-4'} />
+          {searchSuggest.map((item, index) => (
+            <SearchSuggestItem
+              key={item.keyword}
+              data={item}
+              onClick={props.onClick}
+              className={index === 0 ? '' : 'mt-4'}
+            />
           ))}
         </div>
       )}
@@ -50,4 +53,4 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
   )
 }
 
-export default SearchResult
+export default SearchSuggest

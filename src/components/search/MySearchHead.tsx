@@ -9,7 +9,7 @@ import { getSearchDefault } from '../../services/search'
 type MySearchHeadProps = {
   searchValue: string
   setSearchValue: Dispatch<SetStateAction<string>>
-  // setIsShowSearchResult: Dispatch<SetStateAction<boolean>>
+  setIsFocus: Dispatch<SetStateAction<boolean>>
 }
 
 const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
@@ -20,7 +20,7 @@ const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
     if (SearchBarRef.current) {
       SearchBarRef.current.focus()
     }
-  }, [SearchBarRef])
+  }, [SearchBarRef.current])
 
   const { data, isLoading, isError } = getSearchDefault()
   if (isLoading) return <Skeleton animated style={{ height: '3rem', borderRadius: '1rem' }} />
@@ -32,7 +32,6 @@ const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
   const handleBackToHome = () => {
     router.push('/home')
   }
-
   return (
     <div className="h-full w-full flex">
       <div className="w-1/6 flex items-center justify-center" onClick={handleBackToHome}>
@@ -45,6 +44,12 @@ const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
           style={{ '--border-radius': '100px', '--background': '#ffffff' }}
           value={props.searchValue}
           onChange={handleSearchValueChange}
+          onFocus={() => props.setIsFocus(true)}
+          onBlur={() => {
+            setTimeout(() => {
+              props.setIsFocus(false)
+            })
+          }}
         />
       </div>
       <div className="w-1/6 flex items-center justify-center">
