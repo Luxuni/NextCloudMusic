@@ -2,31 +2,31 @@ import { SearchBar, Skeleton } from 'antd-mobile'
 import { LeftOutline } from 'antd-mobile-icons'
 import { SearchBarRef } from 'antd-mobile/es/components/search-bar'
 import { useRouter } from 'next/router'
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { createRef, Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from 'react'
 import { NextPageWithLayout } from '../../../pages/_app'
 import { getSearchDefault } from '../../services/search'
 
 type MySearchHeadProps = {
-  setIsShowSearchResult: Dispatch<SetStateAction<boolean>>
+  searchValue: string
+  setSearchValue: Dispatch<SetStateAction<string>>
+  // setIsShowSearchResult: Dispatch<SetStateAction<boolean>>
 }
 
 const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
-  const [value, setValue] = useState('')
-  const SearchBarRef = useRef<SearchBarRef>(null)
+  const SearchBarRef = createRef<SearchBarRef>()
   const router = useRouter()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (SearchBarRef.current) {
       SearchBarRef.current.focus()
     }
-    console.log(value)
-  }, [SearchBarRef, value])
+  }, [SearchBarRef])
 
   const { data, isLoading, isError } = getSearchDefault()
   if (isLoading) return <Skeleton animated style={{ height: '3rem', borderRadius: '1rem' }} />
 
   const handleSearchValueChange = (value: string) => {
-    setValue(value)
+    props.setSearchValue(value)
   }
 
   const handleBackToHome = () => {
@@ -43,7 +43,7 @@ const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
           ref={SearchBarRef}
           placeholder={data.data.showKeyword}
           style={{ '--border-radius': '100px', '--background': '#ffffff' }}
-          value={value}
+          value={props.searchValue}
           onChange={handleSearchValueChange}
         />
       </div>

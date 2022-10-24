@@ -1,4 +1,7 @@
+import { AxiosPromise } from 'axios'
 import useRequest, { customizeRequestType } from '..'
+import { DailySongsType } from '../recommendList'
+import request from '../request'
 
 type getSearchDefaultType = {
   code: number
@@ -92,4 +95,48 @@ export const getSearchHotTopic: customizeRequestType<getSearchHotTopicParamsType
     isLoading,
     isError,
   }
+}
+
+// Enter a keyword to search
+export type getSearchResultType = {
+  code: number
+  result: {
+    songs: DailySongsType[]
+  }
+}
+
+type getSearchResultParamsType = {
+  keywords: string
+  limit: number
+}
+
+export const getSearchResult = (params: getSearchResultParamsType): AxiosPromise<getSearchResultType> => {
+  return request({
+    url: 'api-text/search',
+    method: 'get',
+    params,
+  })
+}
+
+// search suggest
+type getSearchSuggestParamsType = {
+  keywords: string
+  type: 'mobile' | 'web'
+}
+
+type getSearchSuggestType = {
+  code: number
+  result: {
+    allMatch: {
+      keyword: string
+    }[]
+  }
+}
+
+export const getSearchSuggest = (params: getSearchSuggestParamsType): AxiosPromise<getSearchSuggestType> => {
+  return request({
+    url: 'api-text/search/suggest',
+    method: 'get',
+    params,
+  })
 }
