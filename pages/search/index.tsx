@@ -1,5 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 import { useState } from 'react'
+import { useAppSelector } from '../../src/app/hooks'
 import NavLayout from '../../src/components/layout/nav-layout'
 import HotSearch from '../../src/components/search/HotSearch'
 import MySearchHead from '../../src/components/search/MySearchHead'
@@ -7,11 +8,13 @@ import SearchNav from '../../src/components/search/Nav'
 import SearchList from '../../src/components/search/SearchList'
 import SearchResult from '../../src/components/search/SearchResult'
 import SearchSuggest from '../../src/components/search/SearchSuggest'
+import { selectPlayerMap } from '../../src/features/player/playerSlice'
 import { NextPageWithLayout } from '../_app'
 
 const SearchPage: NextPageWithLayout = () => {
   const [searchValue, setSearchValue] = useState('')
   const [isFocus, setIsFocus] = useState(false)
+  const player = useAppSelector(selectPlayerMap)
 
   const decideShowPage = () => {
     if (searchValue === '') {
@@ -29,10 +32,10 @@ const SearchPage: NextPageWithLayout = () => {
     setSearchValue(keyword)
   }
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col `}>
       <div className="sticky top-0 bg-gray-100 pb-4">
         {/* search box */}
-        <div className="h-12 shadow-xl">
+        <div className="h-12 ">
           <MySearchHead searchValue={searchValue} setSearchValue={setSearchValue} setIsFocus={setIsFocus} />
         </div>
         {CallBackDecideShowPage() === 1 && (

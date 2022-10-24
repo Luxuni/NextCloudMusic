@@ -34,13 +34,16 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
       {isSearchLoading ? (
         <div
           className={`${
-            player.size === 0 ? 'h-[calc(100vh-3rem)]' : 'h-[calc(100vh-3rem)]'
+            player.size === 0 ? 'h-[calc(100vh-4rem)]' : 'h-[calc(100vh-7rem)]'
           } flex flex-col justify-center items-center p-4`}>
           {/* loading */}
           <progress className="progress w-56"></progress>
         </div>
       ) : (
-        <div className={`${player.size === 0 ? '' : 'h-[calc(100vh-7rem)]'} flex flex-col p-4`}>
+        <div
+          className={`${
+            player.size === 0 ? 'h-[calc(100vh-4rem)]' : 'h-[calc(100vh-7rem)]'
+          } flex flex-col p-4 overflow-y-scroll`}>
           {searchResult.map((item, index) => (
             <SearchResultItem key={item.id} data={item} className={index === 0 ? '' : 'mt-4'} />
           ))}

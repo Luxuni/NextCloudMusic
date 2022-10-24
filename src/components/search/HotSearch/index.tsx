@@ -10,7 +10,7 @@ const HotSearch: NextPageWithLayout = () => {
   return (
     <div>
       {/* tab */}
-      <div className="flex items-center justify-between pl-8 pr-8">
+      <div className="flex items-center justify-between pl-8 pr-8 mt-4">
         <span className="text-xl">推荐</span>
         <span>
           <UndoOutline fontSize={20} />

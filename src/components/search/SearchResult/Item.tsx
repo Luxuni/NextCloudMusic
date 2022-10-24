@@ -7,7 +7,7 @@ type SearchResultProps = {
 }
 
 const SearchResultItem: NextComponentType<{}, {}, SearchResultProps> = (props) => {
-  return <div className={'h-12 w-full flex ' + props.className}>SearchResult</div>
+  return <div className={'h-12 w-full flex shrink-0 ' + props.className}>SearchResult</div>
 }
 
 export default SearchResultItem
