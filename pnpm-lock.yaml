@@ -35,7 +35,6 @@ specifiers:
 dependencies:
   '@ant-design/icons': 4.7.0_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.8.6_kuo2ie247izvzll3jejufdtq3q
-  '@types/lodash': 4.14.186
   ahooks: 3.7.2_react@18.2.0
   animate.css: 4.1.1
   antd: 4.23.4_biqbaboplfbrettd7655fr4n2y
@@ -57,6 +56,7 @@ dependencies:
   theme-change: 2.2.0
 
 devDependencies:
+  '@types/lodash': 4.14.186
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -423,7 +423,7 @@ packages:
 
   /@types/lodash/4.14.186:
     resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==}
-    dev: false
+    dev: true
 
   /@types/node/18.0.3:
     resolution: {integrity: sha512-HzNRZtp4eepNitP+BD6k2L6DROIDG4Q0fm4x+dwfsr6LGmROENnok75VGw40628xf+iR24WeMFcHuuBDUAzzsQ==}

@@ -2,6 +2,7 @@ import { NextComponentType } from 'next'
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { selectPlayModeNumber, playModeNumberAddition } from '../../../features/player/playerSlice'
+import PlayMode from '../PlayMode'
 
 const PlayModeIconMap = new Map([
   [
@@ -63,35 +64,12 @@ const PlayModeIconMap = new Map([
     },
   ],
 ])
+
 const Options: NextComponentType = () => {
-  const dispatch = useAppDispatch()
-  const playModeNumber = useAppSelector(selectPlayModeNumber)
-
-  // 迭代器迭代输出0,1,2
-  const playModeNumberIterator = (function* (num: number) {
-    let i = num
-    while (true) {
-      i = (i + 1) % 3
-      dispatch(playModeNumberAddition(i))
-      yield i
-    }
-  })(playModeNumber)
-
-  const [PlayModeIcon, setPlayModeIcon] = React.useState(0)
-
-  const handleClickPlayModeOption = () => {
-    setPlayModeIcon(playModeNumberIterator.next().value!)
-  }
-
   return (
     <div className="mt-4 mb-4 flex items-center justify-between">
       {/* left */}
-      <div className="flex items-center" onClick={handleClickPlayModeOption}>
-        {/* left--> play mode */}
-        <div className="h-8 w-8 flex items-center justify-start">{PlayModeIconMap.get(PlayModeIcon)?.icon}</div>
-        {/* mode title */}
-        <span>{PlayModeIconMap.get(PlayModeIcon)?.title}</span>
-      </div>
+      <PlayMode isShowTitle className="text-gray-400 h-8 w-8"/>
       {/* right */}
       <div className="flex items-center">
         {/* download */}

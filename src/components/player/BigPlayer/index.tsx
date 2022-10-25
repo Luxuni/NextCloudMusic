@@ -1,7 +1,8 @@
 import { NextComponentType } from 'next'
-import { useState } from 'react'
 import BigPlayerBody from './BigPlayerBody'
 import BigPlayerHeader from './BigPlayerHeader'
+import Options from './Options'
+import PlaybackControls from './PlayBackControls'
 
 type BigPlayerProps = {
   handleCloseBigPlayerPopup: () => void
@@ -18,6 +19,17 @@ const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
       {/* body */}
       <div className="h-[60vh] flex items-center justify-center">
         <BigPlayerBody rotationAnimationState={props.rotationAnimationState} />
+      </div>
+      {/* bottom */}
+      <div className="flex flex-1 flex-col justify-between">
+        {/* options */}
+        <div className="h-1/6 mt-4">
+          <Options />
+        </div>
+        {/* Playback controls */}
+        <div className="h-2/3">
+          <PlaybackControls />
+        </div>
       </div>
     </div>
   )
