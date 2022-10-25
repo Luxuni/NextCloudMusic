@@ -1,6 +1,8 @@
 import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { Dispatch, SetStateAction } from 'react'
+import { useAppSelector } from '../../app/hooks'
+import { selectPlayerMap } from '../../features/player/playerSlice'
 import { PlaylistDetailType } from '../../services/playlist'
 import PlaylistCover from './PlaylistCover'
 
@@ -12,12 +14,14 @@ type BigCoverProps = {
 
 const BigCover: NextComponentType<{}, {}, BigCoverProps> = (props) => {
   const { data, setIsShowBigCover } = props
+  const playlistMap = useAppSelector(selectPlayerMap)
+
   return (
     <div
       style={{ backgroundImage: `url(${data.playlist.coverImgUrl})` }}
-      className={'h-screen w-screen ' + props.className}>
+      className={`${playlistMap.size === 0 ? 'h-screen' : 'h-[calc(100vh-3rem)]'} w-screen ` + props.className}>
       <div
-        className="h-screen w-screen backdrop-blur-xl flex flex-col"
+        className="h-full w-screen backdrop-blur-xl flex flex-col"
         onClick={(e) => {
           e.stopPropagation()
           setIsShowBigCover(false)

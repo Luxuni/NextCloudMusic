@@ -1,4 +1,5 @@
 import { useDebounceEffect } from 'ahooks'
+import { isArray } from 'lodash'
 import { NextComponentType } from 'next'
 import { useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
@@ -18,8 +19,10 @@ const SearchSuggest: NextComponentType<{}, {}, SearchSuggestProps> = (props) => 
   const awaitGetSearchSuggest = async () => {
     setIsSearchLoading(true)
     const res = await getSearchSuggest({ keywords: props.searchValue, type: 'mobile' })
-    setSearchSuggest(res.data.result.allMatch)
-    setIsSearchLoading(false)
+    if (isArray(res.data.result.allMatch)) {
+      setSearchSuggest(res.data.result.allMatch)
+      setIsSearchLoading(false)
+    }
   }
 
   useDebounceEffect(() => {
