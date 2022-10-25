@@ -12,7 +12,7 @@ const SearchSuggestItem: NextComponentType<{}, {}, SearchSuggestProps> = (props)
     <div
       className={'h-12 w-full flex ' + props.className}
       onClick={(e) => {
-        e.preventDefault()
+        e.stopPropagation()
         props.onClick(props.data.keyword)
       }}>
       {/* search icon */}

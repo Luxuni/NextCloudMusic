@@ -5,6 +5,7 @@ import { ReactEventHandler, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { handleSongOnEnded, selectNeedPlayedSong, selectPlayer } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
+import BigPlayer from './BigPlayer'
 import HomePlaylist from './HomePlaylist'
 import MyAudio, { MyAudioRefType } from './MyAudio'
 
@@ -24,13 +25,22 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
 
   //playlist btn click --> playlist popup
   const [isShowPlaylist, setIsShowPlaylist] = useState(false)
+  const [isShowBigPlayerPopup, setIsShowBigPlayerPopup] = useState(false)
 
-  const handlePlaylistBtnClick: ReactEventHandler<HTMLDivElement> = () => {
+  const handlePlaylistBtnClick = () => {
     setIsShowPlaylist(true)
   }
 
   const handleClickOnMask: ReactEventHandler<HTMLDivElement> = () => {
     setIsShowPlaylist(false)
+  }
+
+  const handleClickPlayer = () => {
+    setIsShowBigPlayerPopup(true)
+  }
+
+  const handleCloseBigPlayerPopup = () => {
+    setIsShowBigPlayerPopup(false)
   }
 
   // handle loading
@@ -62,6 +72,15 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             {/* playlist content */}
             <HomePlaylist />
           </Popup>
+          {/* bigPlayer */}
+          <Popup
+            visible={isShowBigPlayerPopup}
+            onMaskClick={handleCloseBigPlayerPopup}
+            bodyStyle={{ height: '100vh', background: `url(${needPlayedSong.al.picUrl})` }}>
+            <div className="h-screen w-screen backdrop-blur-xl">
+              <BigPlayer handleCloseBigPlayerPopup={handleCloseBigPlayerPopup} />
+            </div>
+          </Popup>
           {isLoading ? (
             <div
               className={'flex sticky w-full h-12 bg-gray-200 justify-around items-center shadow-xl ' + props.bottom}>
@@ -70,7 +89,12 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
               <DotLoading />
             </div>
           ) : (
-            <div className={'flex sticky w-full h-12 bg-gray-200 shadow-xl ' + props.bottom}>
+            <div
+              className={'flex sticky w-full h-12 bg-gray-200 shadow-xl ' + props.bottom}
+              onClick={(e) => {
+                e.stopPropagation()
+                handleClickPlayer()
+              }}>
               {/* left */}
               <div className="h-full flex items-center justify-around w-3/5">
                 {/* image */}
@@ -98,7 +122,8 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                   // pause
                   <div
                     className="h-full aspect-square flex items-center justify-center"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation()
                       setIsPlay(false)
                     }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -113,7 +138,8 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                   // play
                   <div
                     className="h-full aspect-square flex items-center justify-center"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation()
                       setIsPlay(true)
                     }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -126,7 +152,12 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                   </div>
                 )}
                 {/* playlist-btn */}
-                <div className="h-full aspect-square flex items-center justify-center" onClick={handlePlaylistBtnClick}>
+                <div
+                  className="h-full aspect-square flex items-center justify-center"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handlePlaylistBtnClick()
+                  }}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                     <path
                       fillRule="evenodd"
