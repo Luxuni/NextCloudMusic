@@ -61,7 +61,11 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             onMaskClick={handleCloseBigPlayerPopup}
             bodyStyle={{ height: '100vh', background: `url(${needPlayedSong.al.picUrl})` }}>
             <div className="h-screen w-screen backdrop-blur-xl">
-              <BigPlayer handleCloseBigPlayerPopup={handleCloseBigPlayerPopup} rotationAnimationState={!isPlay} />
+              <BigPlayer
+                handleCloseBigPlayerPopup={handleCloseBigPlayerPopup}
+                rotationAnimationState={!isPlay}
+                setIsPlay={setIsPlay}
+              />
             </div>
           </Popup>
           {isLoading ? (

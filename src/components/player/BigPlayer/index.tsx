@@ -1,4 +1,5 @@
 import { NextComponentType } from 'next'
+import { Dispatch, SetStateAction } from 'react'
 import BigPlayerBody from './BigPlayerBody'
 import BigPlayerHeader from './BigPlayerHeader'
 import Options from './Options'
@@ -7,6 +8,7 @@ import PlaybackControls from './PlayBackControls'
 type BigPlayerProps = {
   handleCloseBigPlayerPopup: () => void
   rotationAnimationState: boolean
+  setIsPlay: Dispatch<SetStateAction<boolean>>
 }
 
 const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
@@ -28,7 +30,7 @@ const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
         </div>
         {/* Playback controls */}
         <div className="h-2/3">
-          <PlaybackControls />
+          <PlaybackControls rotationAnimationState={props.rotationAnimationState} setIsPlay={props.setIsPlay} />
         </div>
       </div>
     </div>
