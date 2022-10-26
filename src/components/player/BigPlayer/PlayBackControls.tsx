@@ -1,15 +1,20 @@
 import { Slider, Toast } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { Dispatch, ReactEventHandler, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, ReactEventHandler, SetStateAction } from 'react'
+import { useDispatch } from 'react-redux'
+import { handleForcePlayNextTrack, handleForcePlayPreviousTrack } from '../../../features/player/playerSlice'
 import PlaylistBtn from '../PlaylistBtn'
 import PlayMode from '../PlayMode'
 
 type PlayBackControlsProps = {
   rotationAnimationState: boolean
   setIsPlay: Dispatch<SetStateAction<boolean>>
+  Audio: MutableRefObject<HTMLAudioElement | null> | undefined
 }
 
 const PlaybackControls: NextComponentType<{}, {}, PlayBackControlsProps> = (props) => {
+  const dispatch = useDispatch()
+
   const toastValue = (value: number | number[]) => {
     let text = ''
     if (typeof value === 'number') {
@@ -52,7 +57,11 @@ const PlaybackControls: NextComponentType<{}, {}, PlayBackControlsProps> = (prop
         {/* middle --> previous , next and play or pause */}
         <div className="h-full w-3/5 flex text-white">
           {/* previous icon */}
-          <div className="h-full w-1/4 flex items-center justify-center">
+          <div
+            className="h-full w-1/4 flex items-center justify-center"
+            onClick={() => {
+              dispatch(handleForcePlayPreviousTrack(props.Audio))
+            }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -101,7 +110,11 @@ const PlaybackControls: NextComponentType<{}, {}, PlayBackControlsProps> = (prop
             )}
           </div>
           {/* next icon */}
-          <div className="h-full w-1/4 flex items-center justify-center">
+          <div
+            className="h-full w-1/4 flex items-center justify-center"
+            onClick={() => {
+              dispatch(handleForcePlayNextTrack(props.Audio))
+            }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

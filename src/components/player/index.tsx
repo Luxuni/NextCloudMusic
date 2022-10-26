@@ -1,12 +1,11 @@
 import { useUpdateEffect } from 'ahooks'
 import { DotLoading, Ellipsis, Popup } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { ReactEventHandler, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { handleSongOnEnded, selectNeedPlayedSong, selectPlayer } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
 import BigPlayer from './BigPlayer'
-import HomePlaylist from './HomePlaylist'
 import MyAudio, { MyAudioRefType } from './MyAudio'
 import PlaylistBtn from './PlaylistBtn'
 
@@ -65,6 +64,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 handleCloseBigPlayerPopup={handleCloseBigPlayerPopup}
                 rotationAnimationState={!isPlay}
                 setIsPlay={setIsPlay}
+                Audio={MyAudioRef.current?.Audio}
               />
             </div>
           </Popup>

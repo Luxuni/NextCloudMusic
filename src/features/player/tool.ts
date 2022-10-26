@@ -47,3 +47,18 @@ export const handlePlayModeMap = new Map([
     },
   ],
 ])
+
+export const forcePlayThePreviousTrack = (
+  state: WritableDraft<PlayerState>,
+  player: DailySongsType[],
+  Audio: MutableRefObject<HTMLAudioElement | null> | undefined = undefined,
+) => {
+  if (state.playPointer === 0) {
+    state.playPointer = player.length - 1
+  } else {
+    state.playPointer -= 1
+  }
+  if (player.length === 1 && Audio) {
+    Audio!.current?.load()
+  }
+}

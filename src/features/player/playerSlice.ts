@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { MutableRefObject } from 'react'
 import { AppState } from '../../app/store'
 import { DailySongsType } from '../../services/recommendList'
-import { handlePlayModeMap } from './tool'
+import { forcePlayThePreviousTrack, handlePlayModeMap } from './tool'
 
 export interface PlayerState {
   value: Map<number, DailySongsType>
@@ -41,6 +41,17 @@ export const playerSlice = createSlice({
       )
     },
 
+    handleForcePlayNextTrack: (state, action: PayloadAction<MutableRefObject<HTMLAudioElement | null> | undefined>) => {
+      handlePlayModeMap.get('loop')!(state, Array.from(state.value.values()), action.payload)
+    },
+
+    handleForcePlayPreviousTrack: (
+      state,
+      action: PayloadAction<MutableRefObject<HTMLAudioElement | null> | undefined>,
+    ) => {
+      forcePlayThePreviousTrack(state, Array.from(state.value.values()), action.payload)
+    },
+
     removeOneSongFromPlayer: (state, action: PayloadAction<DailySongsType>) => {
       if (state.playPointer === state.value.size - 1) {
         state.playPointer = 0
@@ -54,8 +65,15 @@ export const playerSlice = createSlice({
   },
 })
 
-export const { addOneSongToPlayer, removeOneSongFromPlayer, playModeNumberAddition, jumpToSong, handleSongOnEnded } =
-  playerSlice.actions
+export const {
+  addOneSongToPlayer,
+  removeOneSongFromPlayer,
+  playModeNumberAddition,
+  jumpToSong,
+  handleSongOnEnded,
+  handleForcePlayNextTrack,
+  handleForcePlayPreviousTrack,
+} = playerSlice.actions
 
 export const selectPlayer = (state: AppState) => Array.from(state.player.value.values())
 
