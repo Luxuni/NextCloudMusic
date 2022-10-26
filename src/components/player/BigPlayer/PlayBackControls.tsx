@@ -1,6 +1,5 @@
-import { Slider, Toast } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import { Dispatch, MutableRefObject, ReactEventHandler, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, ReactEventHandler, ReactNode, SetStateAction } from 'react'
 import { useDispatch } from 'react-redux'
 import { handleForcePlayNextTrack, handleForcePlayPreviousTrack } from '../../../features/player/playerSlice'
 import PlaylistBtn from '../PlaylistBtn'
@@ -10,21 +9,11 @@ type PlayBackControlsProps = {
   rotationAnimationState: boolean
   setIsPlay: Dispatch<SetStateAction<boolean>>
   Audio: MutableRefObject<HTMLAudioElement | null> | undefined
+  children?: ReactNode
 }
 
 const PlaybackControls: NextComponentType<{}, {}, PlayBackControlsProps> = (props) => {
   const dispatch = useDispatch()
-
-  const toastValue = (value: number | number[]) => {
-    let text = ''
-    if (typeof value === 'number') {
-      text = `${value}`
-    } else {
-      text = `[${value.join(',')}]`
-    }
-    Toast.show(`当前选中值为：${text}`)
-    console.log(value)
-  }
 
   const handleClickPlayOrPause: ReactEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
@@ -33,21 +22,7 @@ const PlaybackControls: NextComponentType<{}, {}, PlayBackControlsProps> = (prop
   return (
     <div className="flex flex-col h-full">
       {/* range */}
-      <div className="flex items-center pl-2 pr-2">
-        <div>00:00</div>
-        <div className="w-5/6">
-          <Slider
-            className=""
-            style={{
-              '--fill-color': '#DBC8AC',
-            }}
-            icon={<></>}
-            defaultValue={40}
-            onAfterChange={toastValue}
-          />
-        </div>
-        <div>00:00</div>
-      </div>
+      {props.children}
       {/* bottom */}
       <div className="flex-1 flex items-center justify-between">
         {/* left --> play mode */}

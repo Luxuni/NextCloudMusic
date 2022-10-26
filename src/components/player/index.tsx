@@ -1,5 +1,5 @@
 import { useUpdateEffect } from 'ahooks'
-import { DotLoading, Ellipsis, Popup } from 'antd-mobile'
+import { DotLoading, Ellipsis, Popup, Slider, Toast } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -37,6 +37,17 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
   // handle loading
   const [isLoading, setIsLoading] = useState(true)
 
+  const toastValue = (value: number | number[]) => {
+    let text = ''
+    if (typeof value === 'number') {
+      text = `${value}`
+    } else {
+      text = `[${value.join(',')}]`
+    }
+    Toast.show(`当前选中值为：${text}`)
+    console.log(value)
+  }
+
   useUpdateEffect(() => {
     setIsLoading(true)
   }, [needPlayedSong?.url])
@@ -64,8 +75,22 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 handleCloseBigPlayerPopup={handleCloseBigPlayerPopup}
                 rotationAnimationState={!isPlay}
                 setIsPlay={setIsPlay}
-                Audio={MyAudioRef.current?.Audio}
-              />
+                Audio={MyAudioRef.current?.Audio}>
+                <div className="flex items-center pl-2 pr-2">
+                  <div>00:00</div>
+                  <div className="w-5/6">
+                    <Slider
+                      style={{
+                        '--fill-color': '#DBC8AC',
+                      }}
+                      icon={<></>}
+                      defaultValue={40}
+                      onAfterChange={toastValue}
+                    />
+                  </div>
+                  <div>00:00</div>
+                </div>
+              </BigPlayer>
             </div>
           </Popup>
           {isLoading ? (

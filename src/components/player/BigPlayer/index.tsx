@@ -1,5 +1,5 @@
 import { NextComponentType } from 'next'
-import { Dispatch, MutableRefObject, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, ReactNode, SetStateAction } from 'react'
 import BigPlayerBody from './BigPlayerBody'
 import BigPlayerHeader from './BigPlayerHeader'
 import Options from './Options'
@@ -10,6 +10,7 @@ type BigPlayerProps = {
   rotationAnimationState: boolean
   setIsPlay: Dispatch<SetStateAction<boolean>>
   Audio: MutableRefObject<HTMLAudioElement | null> | undefined
+  children?: ReactNode
 }
 
 const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
@@ -31,7 +32,12 @@ const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
         </div>
         {/* Playback controls */}
         <div className="h-2/3">
-          <PlaybackControls rotationAnimationState={props.rotationAnimationState} setIsPlay={props.setIsPlay} Audio={props.Audio}/>
+          <PlaybackControls
+            rotationAnimationState={props.rotationAnimationState}
+            setIsPlay={props.setIsPlay}
+            Audio={props.Audio}>
+            {props.children}
+          </PlaybackControls>
         </div>
       </div>
     </div>

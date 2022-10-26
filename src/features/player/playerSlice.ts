@@ -21,6 +21,7 @@ const initialState: PlayerState = {
 export const playerSlice = createSlice({
   name: 'player',
   initialState,
+
   reducers: {
     addOneSongToPlayer: (state, action: PayloadAction<DailySongsType>) => {
       const value = Array.from(state.value.values())
