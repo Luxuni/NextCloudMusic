@@ -17,7 +17,7 @@ const NavigationItem: NextPageWithLayout<NavigationItemProps> = (props) => {
         {/* icon */}
         <props.icon active={router.pathname === props.route} />
         {/* title */}
-        <div className={router.pathname === props.route ? 'mt-2 text-xs text-red-700' : 'mt-2 text-xs'}>
+        <div className={router.pathname === props.route ? 'mt-2 text-xs text-red-700' : 'mt-2 text-xs text-gray-500'}>
           {props.title}
         </div>
       </div>
