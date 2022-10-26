@@ -1,5 +1,7 @@
 import { useUpdateEffect } from 'ahooks'
-import { DotLoading, Ellipsis, Popup, Slider, Toast } from 'antd-mobile'
+import { DotLoading, Ellipsis, Popup, Slider } from 'antd-mobile'
+import _ from 'lodash'
+import moment from 'moment'
 import { NextComponentType } from 'next'
 import { useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -38,15 +40,22 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const toastValue = (value: number | number[]) => {
-    let text = ''
-    if (typeof value === 'number') {
-      text = `${value}`
-    } else {
-      text = `[${value.join(',')}]`
-    }
-    Toast.show(`当前选中值为：${text}`)
-    console.log(value)
+    // unlock
+    MyAudioRef.current!.Audio.current!.currentTime = Number(value)
+    setRefChangesliderValueLock(false)
   }
+
+  const [sliderValue, setSliderValue] = useState(0)
+  const [AudioDuration, setAudioDuration] = useState(0)
+  const [refChangesliderValueLock, setRefChangesliderValueLock] = useState(false)
+
+  const handleOnTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    if (!refChangesliderValueLock && Math.abs(e.currentTarget.currentTime - sliderValue) > 1) {
+      setSliderValue(e.currentTarget.currentTime)
+    }
+  }
+
+  const throttleHandleOnTimeUpdate = _.throttle(handleOnTimeUpdate, 1000, { leading: true, trailing: false })
 
   useUpdateEffect(() => {
     setIsLoading(true)
@@ -63,7 +72,9 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
             handleSongOnEnded={() => {
               dispatch(handleSongOnEnded(MyAudioRef.current?.Audio))
             }}
+            handleOnTimeUpdate={throttleHandleOnTimeUpdate}
             setIsLoading={setIsLoading}
+            setAudioDuration={setAudioDuration}
           />
           {/* bigPlayer */}
           <Popup
@@ -77,18 +88,26 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 setIsPlay={setIsPlay}
                 Audio={MyAudioRef.current?.Audio}>
                 <div className="flex items-center pl-2 pr-2">
-                  <div>00:00</div>
+                  <div>{moment(sliderValue * 1000).format('mm:ss')}</div>
                   <div className="w-5/6">
                     <Slider
                       style={{
                         '--fill-color': '#DBC8AC',
                       }}
+                      min={0}
+                      max={AudioDuration}
                       icon={<></>}
-                      defaultValue={40}
+                      defaultValue={0}
+                      value={sliderValue}
                       onAfterChange={toastValue}
+                      onChange={(value) => {
+                        // locked
+                        setRefChangesliderValueLock(true)
+                        setSliderValue(Number(value))
+                      }}
                     />
                   </div>
-                  <div>00:00</div>
+                  <div>{moment(AudioDuration * 1000).format('mm:ss')}</div>
                 </div>
               </BigPlayer>
             </div>
