@@ -1,45 +1,42 @@
 import { DotLoading } from 'antd-mobile'
 import { NextComponentType } from 'next'
+import React from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { selectNeedPlayedSong } from '../../../features/player/playerSlice'
 import { getUserLikeList, getUserLoadingStatus } from '../../../services/user'
 import { HOC } from '../HOC'
 
 type OptionsProps = {
-  userId: number
+  userId?: number
 }
 
-function PushIntoUserId(WrapComponent: NextComponentType<{}, {}, OptionsProps>) {
+const LoadingFC: React.FC = () => {
+  return (
+    <div className="h-full w-full flex text-white items-center justify-around">
+      <DotLoading />
+      <DotLoading />
+      <DotLoading />
+    </div>
+  )
+}
+
+function PushIntoUserId(WrapComponent: NextComponentType<{}, {}, Required<OptionsProps>>) {
   return function PushIntoUserIdIndex() {
     const { data, isLoading, isError } = getUserLoadingStatus()
-    if (isLoading) {
-      return (
-        <div className="h-full w-full flex text-white items-center justify-around">
-          <DotLoading />
-          <DotLoading />
-          <DotLoading />
-        </div>
-      )
-    }
+    if (isLoading) return <LoadingFC />
+
     return <WrapComponent userId={data.data.profile.userId} />
   }
 }
 
-const Options: NextComponentType<{}, {}, OptionsProps> = (props) => {
+const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
   const needPlayedSongMessage = useAppSelector(selectNeedPlayedSong)
   const { data, isLoading, isError } = getUserLikeList({ userId: props.userId })
   let ids: Set<number>
-  if (isLoading)
-    return (
-      <div className="h-full w-full flex text-white items-center justify-around">
-        <DotLoading />
-        <DotLoading />
-        <DotLoading />
-      </div>
-    )
+  if (isLoading) return <LoadingFC />
+
   ids = new Set(data.ids)
   console.log(123)
-
   return (
     <div className="h-full w-full flex text-white items-center justify-around">
       {/* like ?? */}
@@ -131,4 +128,4 @@ const Options: NextComponentType<{}, {}, OptionsProps> = (props) => {
   )
 }
 
-export default HOC((props) => props['userId'])(PushIntoUserId(Options))
+export default HOC<OptionsProps>((props) => props['userId'])(PushIntoUserId(Options))

@@ -28,7 +28,7 @@ const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
       <div className="flex flex-1 flex-col justify-between">
         {/* options */}
         <div className="h-1/6 mt-4">
-          <Options/>
+          <Options />
         </div>
         {/* Playback controls */}
         <div className="h-2/3">
