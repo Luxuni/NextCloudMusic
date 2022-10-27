@@ -36,7 +36,6 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
   if (isLoading) return <LoadingFC />
 
   ids = new Set(data.ids)
-  console.log(123)
   return (
     <div className="h-full w-full flex text-white items-center justify-around">
       {/* like ?? */}
