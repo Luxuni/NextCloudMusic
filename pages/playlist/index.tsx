@@ -1,3 +1,4 @@
+import { useMount } from 'ahooks'
 import { Ellipsis, Skeleton } from 'antd-mobile'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
@@ -16,10 +17,25 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
   const messageRef = createRef<HTMLDivElement>()
   const [isShowName, setIsShowName] = useState(false)
   const [isShowBigCover, setIsShowBigCover] = useState(false)
+  let observer: IntersectionObserver
 
   useLayoutEffect(() => {
+    observer = new IntersectionObserver((entries) => {
+      _.debounce(
+        () => {
+          if (entries[0].intersectionRatio) {
+            setIsShowName(false)
+          } else {
+            setIsShowName(true)
+          }
+        },
+        1000,
+        { leading: true, trailing: false },
+      )()
+    })
+
     if (messageRef.current) {
-      observer.observe(messageRef.current)
+      observer?.observe(messageRef.current)
     }
     return () => {
       observer?.disconnect()
@@ -36,20 +52,6 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
       </div>
     )
 
-  const observer = new IntersectionObserver((entries) => {
-    _.debounce(
-      () => {
-        if (entries[0].intersectionRatio) {
-          setIsShowName(false)
-        } else {
-          setIsShowName(true)
-        }
-      },
-      1000,
-      { leading: true, trailing: false },
-    )()
-  })
-
   const handleClickCover = () => {
     setIsShowBigCover(!isShowBigCover)
   }
@@ -58,7 +60,7 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
       {isShowBigCover ? (
         <BigCover data={data} setIsShowBigCover={setIsShowBigCover} className="animated fadeIn" />
       ) : (
-        <div id="playlist" style={{ backgroundImage: `url(${data.playlist.coverImgUrl})` }} className="bg-cover">
+        <div style={{ backgroundImage: `url(${data.playlist.coverImgUrl})` }} className="bg-cover">
           {/* playlist head */}
           <div className="sticky top-0 h-12 z-50 bg-black">
             <PlaylistHead isShowName={isShowName} name={data.playlist.name} />
