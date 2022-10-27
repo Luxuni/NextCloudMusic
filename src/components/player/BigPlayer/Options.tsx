@@ -3,6 +3,7 @@ import { NextComponentType } from 'next'
 import { useAppSelector } from '../../../app/hooks'
 import { selectNeedPlayedSong } from '../../../features/player/playerSlice'
 import { getUserLikeList, getUserLoadingStatus } from '../../../services/user'
+import { HOC } from '../HOC'
 
 type OptionsProps = {
   userId: number
@@ -27,14 +28,17 @@ function PushIntoUserId(WrapComponent: NextComponentType<{}, {}, OptionsProps>) 
 const Options: NextComponentType<{}, {}, OptionsProps> = (props) => {
   const needPlayedSongMessage = useAppSelector(selectNeedPlayedSong)
   const { data, isLoading, isError } = getUserLikeList({ userId: props.userId })
-  if (isLoading) return (
-    <div className="h-full w-full flex text-white items-center justify-around">
-      <DotLoading />
-      <DotLoading />
-      <DotLoading />
-    </div>
-  )
-  const ids = new Set(data.ids)
+  let ids: Set<number>
+  if (isLoading)
+    return (
+      <div className="h-full w-full flex text-white items-center justify-around">
+        <DotLoading />
+        <DotLoading />
+        <DotLoading />
+      </div>
+    )
+  ids = new Set(data.ids)
+  console.log(123)
 
   return (
     <div className="h-full w-full flex text-white items-center justify-around">
@@ -127,4 +131,4 @@ const Options: NextComponentType<{}, {}, OptionsProps> = (props) => {
   )
 }
 
-export default PushIntoUserId(Options)
+export default HOC((props) => props['userId'])(PushIntoUserId(Options))
