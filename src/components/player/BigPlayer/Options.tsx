@@ -1,9 +1,10 @@
-import { DotLoading } from 'antd-mobile'
+import { DotLoading, Toast } from 'antd-mobile'
 import { NextComponentType } from 'next'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useImmer } from 'use-immer'
 import { useAppSelector } from '../../../app/hooks'
 import { selectNeedPlayedSong } from '../../../features/player/playerSlice'
-import { getUserLikeList, getUserLoadingStatus } from '../../../services/user'
+import { getUserLikeListRequest, getUserLoadingStatus, likeSong } from '../../../services/user'
 import { HOC } from '../HOC'
 
 type OptionsProps = {
@@ -31,11 +32,28 @@ function PushIntoUserId(WrapComponent: NextComponentType<{}, {}, Required<Option
 
 const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
   const needPlayedSongMessage = useAppSelector(selectNeedPlayedSong)
-  const { data, isLoading, isError } = getUserLikeList({ userId: props.userId })
-  let ids: Set<number>
-  if (isLoading) return <LoadingFC />
+  const [ids, setIds] = useImmer<Set<number>>(new Set())
 
-  ids = new Set(data.ids)
+  const getUserLikeList = async (userId: number) => {
+    const { data } = await getUserLikeListRequest({ userId })
+    setIds((draft) => {
+      data.ids.forEach((id) => draft.add(id))
+    })
+  }
+
+  const handleLikeSong = async () => {
+    const addLikeres = await likeSong({ id: needPlayedSongMessage.id })
+    if (addLikeres.data.code === 200) {
+      Toast.show('已添加我喜欢')
+    } else {
+      Toast.show('添加失败')
+    }
+    getUserLikeList(props.userId)
+  }
+
+  useEffect(() => {
+    getUserLikeList(props.userId)
+  }, [props.userId])
   return (
     <div className="h-full w-full flex text-white items-center justify-around">
       {/* like ?? */}
@@ -46,7 +64,7 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
           </svg>
         </div>
       ) : (
-        <div className="h-full w-1/6 flex items-center justify-center">
+        <div className="h-full w-1/6 flex items-center justify-center" onClick={handleLikeSong}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -63,7 +81,7 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
         </div>
       )}
       {/* download */}
-      <div className="h-full w-1/6 flex items-center justify-center">
+      <div className="h-full w-1/6 flex items-center justify-center" onClick={() => {}}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

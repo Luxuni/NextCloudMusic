@@ -1,6 +1,6 @@
 // import 'antd/dist/antd.css'
 import 'animate.css/source/animate.css'
-import { enableMapSet } from 'immer'
+import { enableAllPlugins, enableMapSet } from 'immer'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
@@ -11,6 +11,7 @@ import '../src/styles/global.css'
 import '../src/styles/vars.css'
 
 enableMapSet()
+enableAllPlugins()
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode

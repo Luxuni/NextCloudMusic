@@ -38,14 +38,6 @@ type getUserLikeListType = {
   code: number
 }
 
-// export const getUserLikeList = (params: getUserLikeListParams): AxiosPromise<getUserLikeListType> => {
-//   return request({
-//     url: 'api-text/likelist',
-//     method: 'get',
-//     params,
-//   })
-// }
-
 export const getUserLikeList: customizeRequestType<getUserLikeListParams, getUserLikeListType> = (params) => {
   const { data, isLoading, isError } = useRequest({
     url: 'api-text/likelist',
@@ -57,4 +49,28 @@ export const getUserLikeList: customizeRequestType<getUserLikeListParams, getUse
     isLoading,
     isError,
   }
+}
+
+export const getUserLikeListRequest = (params: getUserLikeListParams): AxiosPromise<getUserLikeListType> => {
+  return request({
+    url: 'api-text/likelist',
+    method: 'get',
+    params,
+  })
+}
+
+type likeSongParams = {
+  id: number
+}
+
+type likeSongType = {
+  code: number
+}
+
+export const likeSong = (params: likeSongParams): AxiosPromise<likeSongType> => {
+  return request({
+    url: 'api-text/like',
+    method: 'get',
+    params,
+  })
 }
