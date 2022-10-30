@@ -37,6 +37,7 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
   const getUserLikeList = async (userId: number) => {
     const { data } = await getUserLikeListRequest({ userId })
     setIds((draft) => {
+      draft.clear()
       data.ids.forEach((id) => draft.add(id))
     })
   }
@@ -51,6 +52,16 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
     getUserLikeList(props.userId)
   }
 
+  const handleCancelLikeSong = async () => {
+    const addLikeres = await likeSong({ id: needPlayedSongMessage.id, like: false })
+    if (addLikeres.data.code === 200) {
+      Toast.show('已取消我喜欢')
+    } else {
+      Toast.show('取消失败')
+    }
+    getUserLikeList(props.userId)
+  }
+
   useEffect(() => {
     getUserLikeList(props.userId)
   }, [props.userId])
@@ -58,7 +69,7 @@ const Options: NextComponentType<{}, {}, Required<OptionsProps>> = (props) => {
     <div className="h-full w-full flex text-white items-center justify-around">
       {/* like ?? */}
       {ids.has(needPlayedSongMessage.id) ? (
-        <div className="h-full w-1/6 flex items-center justify-center">
+        <div className="h-full w-1/6 flex items-center justify-center" onClick={handleCancelLikeSong}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
             <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
           </svg>

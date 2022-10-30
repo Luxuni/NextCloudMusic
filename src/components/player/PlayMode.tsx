@@ -85,19 +85,17 @@ const PlayMode: NextComponentType<{}, {}, PlayModeProps> = (props) => {
     }
   })(playModeNumber)
 
-  const [PlayModeIcon, setPlayModeIcon] = React.useState(0)
-
   const handleClickPlayModeOption = () => {
-    setPlayModeIcon(playModeNumberIterator.next().value!)
+    playModeNumberIterator.next()
   }
   return (
     <div className="flex h-full items-center justify-center" onClick={handleClickPlayModeOption}>
       {/* left--> play mode */}
       <div className={`flex items-center justify-start ${props.className}`}>
-        {PlayModeIconMap.get(PlayModeIcon)?.icon(props.heightName, props.widthName)}
+        {PlayModeIconMap.get(playModeNumber)?.icon(props.heightName, props.widthName)}
       </div>
       {/* mode title */}
-      {props.isShowTitle && <span>{PlayModeIconMap.get(PlayModeIcon)?.title}</span>}
+      {props.isShowTitle && <span>{PlayModeIconMap.get(playModeNumber)?.title}</span>}
     </div>
   )
 }

@@ -61,6 +61,7 @@ export const getUserLikeListRequest = (params: getUserLikeListParams): AxiosProm
 
 type likeSongParams = {
   id: number
+  like?: boolean
 }
 
 type likeSongType = {
