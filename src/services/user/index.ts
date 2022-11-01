@@ -150,22 +150,25 @@ type getUserPlaylistParams = {
   offset?: number
 }
 
+export type playlistType = {
+  subscribed: boolean
+  coverImgUrl: string
+  createTime: number
+  id: number
+  name: string
+  trackCount: number
+  userId: number
+  creator: {
+    avatarUrl: string
+    nickname: string
+    userId: number
+  }
+}
+
 export type getUserPlaylistType = {
   code: number
   more: boolean
-  playlist: {
-    coverImgUrl: string
-    createTime: number
-    id: number
-    name: string
-    trackCount: number
-    userId: number
-    creator: {
-      avatarUrl: string
-      nickname: string
-      userId: number
-    }
-  }[]
+  playlist: playlistType[]
 }
 
 export const getUserPlaylist = (params: getUserPlaylistParams): AxiosPromise<getUserPlaylistType> => {

@@ -115,8 +115,8 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
           <div
             className={
               isLoading
-                ? 'flex sticky w-full h-12 bg-gray-200 justify-between items-center shadow-xl ' + props.bottom
-                : 'flex sticky w-full h-12 bg-gray-200 shadow-xl ' + props.bottom
+                ? 'flex sticky w-full h-12 bg-gray-200 justify-between items-center shadow-xl z-50 ' + props.bottom
+                : 'flex sticky w-full h-12 bg-gray-200 shadow-xl z-50 ' + props.bottom
             }>
             {isLoading ? (
               <>

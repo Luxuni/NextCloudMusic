@@ -89,7 +89,7 @@ const NavigationMessages = new Map([
 
 const NavigationSection: NextPageWithLayout = () => {
   return (
-    <div className="sticky bottom-0 h-20 bg-gray-200 flex items-center justify-around border-t-2 border-gray-300 shadow-xl">
+    <div className="sticky bottom-0 h-20 bg-gray-200 flex items-center justify-around border-t-2 border-gray-300 shadow-xl z-50">
       {Array.from(NavigationMessages).map(([key, value]) => (
         <NavigationItem key={key} {...value} />
       ))}
