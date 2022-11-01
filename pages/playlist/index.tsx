@@ -1,14 +1,15 @@
+import { useCreation, useLockFn } from 'ahooks'
 import { Ellipsis, Skeleton } from 'antd-mobile'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
-import { createRef, useLayoutEffect, useMemo, useState } from 'react'
+import { createRef, useEffect, useLayoutEffect, useState } from 'react'
 import NavLayout from '../../src/components/layout/nav-layout'
 import BigCover from '../../src/components/playlist/BigCover'
 import MyPlaylist from '../../src/components/playlist/MyPlaylist'
 import PlayAll from '../../src/components/playlist/PlayAll'
 import PlaylistHead from '../../src/components/playlist/PlaylistHead'
 import PlaylistMessage from '../../src/components/playlist/PlaylistMessage'
-import { getPlaylistDetail } from '../../src/services/playlist'
+import { getPlaylistDetailRequest, PlaylistDetailType } from '../../src/services/playlist'
 import { NextPageWithLayout } from '../_app'
 
 const ShowPlaylistPage: NextPageWithLayout = () => {
@@ -16,7 +17,13 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
   const messageRef = createRef<HTMLDivElement>()
   const [isShowName, setIsShowName] = useState(false)
   const [isShowBigCover, setIsShowBigCover] = useState(false)
-  let observer: IntersectionObserver
+  const [data, setData] = useState<PlaylistDetailType | null>(null)
+  let observer = useCreation<IntersectionObserver | null>(() => null, [])
+
+  const GetPlaylistDetailRequest = useLockFn(async () => {
+    const res = await getPlaylistDetailRequest({ id: router.query.id as string })
+    setData(res.data)
+  })
 
   useLayoutEffect(() => {
     observer = new IntersectionObserver((entries) => {
@@ -41,10 +48,13 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
     }
   }, [messageRef])
 
-  const { id } = router.query as { id: string }
-  const { data, isLoading, isError } = getPlaylistDetail({ id })
+  useEffect(() => {
+    if (router.query.id) {
+      GetPlaylistDetailRequest()
+    }
+  }, [router.query])
 
-  if (isLoading)
+  if (data === null)
     return (
       <div>
         <Skeleton.Title animated />

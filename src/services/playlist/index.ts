@@ -1,5 +1,7 @@
+import { AxiosPromise } from 'axios'
 import useRequest, { customizeRequestType } from '..'
 import { DailySongsType } from '../recommendList'
+import request from '../request'
 
 export type PlaylistDetailType = {
   code: number
@@ -41,4 +43,12 @@ export const getPlaylistDetail: customizeRequestType<{ id: string }, PlaylistDet
     isLoading,
     isError,
   }
+}
+
+export const getPlaylistDetailRequest = (params: { id: string }): AxiosPromise<PlaylistDetailType> => {
+  return request({
+    url: 'api-text/playlist/detail',
+    method: 'get',
+    params,
+  })
 }
