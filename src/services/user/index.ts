@@ -2,7 +2,7 @@ import { AxiosPromise } from 'axios'
 import useRequest, { customizeRequestType } from '..'
 import request from '../request'
 
-type getLoginStatusType = {
+export type getLoginStatusType = {
   data: {
     code: number
     profile: {
@@ -71,6 +71,106 @@ type likeSongType = {
 export const likeSong = (params: likeSongParams): AxiosPromise<likeSongType> => {
   return request({
     url: 'api-text/like',
+    method: 'get',
+    params,
+  })
+}
+
+// /user/subcount
+export type getUserSubCountType = {
+  programCount: number
+  djRadioCount: number
+  mvCount: number
+  artistCount: number
+  newProgramCount: number
+  createDjRadioCount: number
+  createdPlaylistCount: number
+  subPlaylistCount: number
+  code: number
+}
+
+export const UserSubCount: customizeRequestType<any, getUserSubCountType> = () => {
+  const { data, isLoading, isError } = useRequest({
+    url: 'api-text/user/subcount',
+    method: 'get',
+  })
+  return {
+    data,
+    isLoading,
+    isError,
+  }
+}
+
+export const UserSubCountRequest = (): AxiosPromise<getUserSubCountType> => {
+  return request({
+    url: 'api-text/user/subcount',
+    method: 'get',
+  })
+}
+
+// /user/detail
+type getUserDetailParams = {
+  uid: number
+}
+
+export type getUserDetailType = {
+  level: number
+  listenSongs: number
+  userPoint: {
+    userId: number
+    balance: number
+    updateTime: number
+    version: number
+    status: number
+    blockBalance: number
+  }
+  profile: {
+    followeds: number
+    follows: number
+  }
+}
+
+export const getUserDetail: customizeRequestType<getUserDetailParams, getUserDetailType> = (params) => {
+  const { data, isLoading, isError } = useRequest({
+    url: 'api-text/user/detail',
+    method: 'get',
+    params,
+  })
+  return {
+    data,
+    isLoading,
+    isError,
+  }
+}
+
+// /user/playlist
+type getUserPlaylistParams = {
+  uid: number
+  limit?: number
+  offset?: number
+}
+
+export type getUserPlaylistType = {
+  code: number
+  more: boolean
+  playlist: {
+    coverImgUrl: string
+    createTime: number
+    id: number
+    name: string
+    trackCount: number
+    userId: number
+    creator: {
+      avatarUrl: string
+      nickname: string
+      userId: number
+    }
+  }[]
+}
+
+export const getUserPlaylist = (params: getUserPlaylistParams): AxiosPromise<getUserPlaylistType> => {
+  return request({
+    url: 'api-text/user/playlist',
     method: 'get',
     params,
   })

@@ -30,7 +30,7 @@ const MySearchHead: NextPageWithLayout<MySearchHeadProps> = (props) => {
   }
 
   const handleBackToHome = () => {
-    router.push('/home')
+    router.back()
   }
   return (
     <div className="h-full w-full flex">

@@ -1,4 +1,4 @@
-import { useDebounceEffect } from 'ahooks'
+import { useDebounceEffect, useLockFn } from 'ahooks'
 import { List } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useState } from 'react'
@@ -26,9 +26,9 @@ const SearchResult: NextComponentType<{}, {}, SearchSuggestProps> = (props) => {
     setIsSearchLoading(false)
   }
 
-  const handleClickSearchResultItem = (item: DailySongsType) => {
+  const handleClickSearchResultItem = useLockFn(async (item: DailySongsType) => {
     addOneSongAndJumpTo(item, playlistMap, dispatch)
-  }
+  })
 
   useDebounceEffect(() => {
     awaitGetSearchResult()

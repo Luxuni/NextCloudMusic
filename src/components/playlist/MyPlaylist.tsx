@@ -1,3 +1,4 @@
+import { useLockFn } from 'ahooks'
 import { List } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
@@ -14,9 +15,9 @@ const MyPlaylist: NextComponentType<{}, {}, MyPlaylistProps> = (props) => {
   const dispatch = useAppDispatch()
   const playlistMap = useAppSelector(selectPlayerMap)
 
-  const handleListItemClicked = async(item: DailySongsType) => {
+  const handleListItemClicked = useLockFn(async (item: DailySongsType) => {
     addOneSongAndJumpTo(item, playlistMap, dispatch)
-  }
+  })
   return (
     <>
       <List>

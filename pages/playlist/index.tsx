@@ -1,8 +1,7 @@
-import { useMount } from 'ahooks'
 import { Ellipsis, Skeleton } from 'antd-mobile'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
-import { createRef, useLayoutEffect, useState } from 'react'
+import { createRef, useLayoutEffect, useMemo, useState } from 'react'
 import NavLayout from '../../src/components/layout/nav-layout'
 import BigCover from '../../src/components/playlist/BigCover'
 import MyPlaylist from '../../src/components/playlist/MyPlaylist'
@@ -44,6 +43,7 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
 
   const { id } = router.query as { id: string }
   const { data, isLoading, isError } = getPlaylistDetail({ id })
+
   if (isLoading)
     return (
       <div>
@@ -78,7 +78,7 @@ const ShowPlaylistPage: NextPageWithLayout = () => {
               />
               {/* description */}
               <div className="mt-4 text-white">
-                <Ellipsis content={data.playlist.description} />
+                <Ellipsis content={data.playlist.description ?? ''} />
               </div>
               {/* options */}
               <div className="flex justify-around mt-4">

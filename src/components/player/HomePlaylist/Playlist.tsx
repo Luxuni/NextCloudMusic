@@ -1,3 +1,4 @@
+import { useLockFn } from 'ahooks'
 import { Ellipsis } from 'antd-mobile'
 import { NextComponentType } from 'next'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
@@ -14,9 +15,9 @@ const Playlist: NextComponentType = () => {
     dispatch(removeOneSongFromPlayer(SongMessage))
   }
 
-  const handleClickItem = async (item: DailySongsType) => {
+  const handleClickItem = useLockFn(async (item: DailySongsType) => {
     addOneSongAndJumpTo(item, playListMap, dispatch)
-  }
+  })
   return (
     <div className="w-full ">
       {playlist.map((item, index) => (

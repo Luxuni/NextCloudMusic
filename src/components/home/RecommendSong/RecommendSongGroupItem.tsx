@@ -1,9 +1,9 @@
+import { useLockFn } from 'ahooks'
 import { Ellipsis } from 'antd-mobile'
 import { NextPageWithLayout } from '../../../../pages/_app'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { addOneSongToPlayer, jumpToSong, selectPlayerMap } from '../../../features/player/playerSlice'
+import { selectPlayerMap } from '../../../features/player/playerSlice'
 import { DailySongsType } from '../../../services/recommendList'
-import { getSongUrl } from '../../../services/song/url'
 import { addOneSongAndJumpTo } from '../../playlist/tools'
 import MyImage from '../../public/MyImage'
 
@@ -16,10 +16,10 @@ const RecommendSongGroupItem: NextPageWithLayout<RecommendSongGroupItemType> = (
   const dispatch = useAppDispatch()
   const playlistMap = useAppSelector(selectPlayerMap)
 
-  const handleClickRecommendSongPlayBth = async () => {
+  const handleClickRecommendSongPlayBth = useLockFn(async () => {
     addOneSongAndJumpTo(props.data, playlistMap, dispatch)
     // add to playlist and jump to song
-  }
+  })
 
   return (
     <div className={'h-16 w-full flex justify-between items-center ' + props.className}>
