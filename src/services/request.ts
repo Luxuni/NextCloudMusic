@@ -42,7 +42,7 @@ const source = CancelToken.source()
 
 //base config
 const request = axios.create({
-  // baseURL: 'http://localhost:4000',
+  baseURL: 'api',
   timeout: 10000,
   //allow coookies
   withCredentials: true,

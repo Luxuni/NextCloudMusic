@@ -7,7 +7,7 @@ type BannerType = {
 
 export const getBanner: customizeRequestType<{ type: number }, { banners: BannerType; code: number }> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/banner',
+    url: 'banner',
     method: 'get',
     params,
   })

@@ -18,7 +18,7 @@ export type getLoginStatusType = {
 
 export const getUserLoadingStatus: customizeRequestType<any, getLoginStatusType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/login/status',
+    url: 'login/status',
     method: 'get',
   })
   return {
@@ -40,7 +40,7 @@ type getUserLikeListType = {
 
 export const getUserLikeList: customizeRequestType<getUserLikeListParams, getUserLikeListType> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/likelist',
+    url: 'likelist',
     method: 'get',
     params,
   })
@@ -53,7 +53,7 @@ export const getUserLikeList: customizeRequestType<getUserLikeListParams, getUse
 
 export const getUserLikeListRequest = (params: getUserLikeListParams): AxiosPromise<getUserLikeListType> => {
   return request({
-    url: 'api-text/likelist',
+    url: 'likelist',
     method: 'get',
     params,
   })
@@ -70,7 +70,7 @@ type likeSongType = {
 
 export const likeSong = (params: likeSongParams): AxiosPromise<likeSongType> => {
   return request({
-    url: 'api-text/like',
+    url: 'like',
     method: 'get',
     params,
   })
@@ -91,7 +91,7 @@ export type getUserSubCountType = {
 
 export const UserSubCount: customizeRequestType<any, getUserSubCountType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/user/subcount',
+    url: 'user/subcount',
     method: 'get',
   })
   return {
@@ -103,7 +103,7 @@ export const UserSubCount: customizeRequestType<any, getUserSubCountType> = () =
 
 export const UserSubCountRequest = (): AxiosPromise<getUserSubCountType> => {
   return request({
-    url: 'api-text/user/subcount',
+    url: 'user/subcount',
     method: 'get',
   })
 }
@@ -132,7 +132,7 @@ export type getUserDetailType = {
 
 export const getUserDetail: customizeRequestType<getUserDetailParams, getUserDetailType> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/user/detail',
+    url: 'user/detail',
     method: 'get',
     params,
   })
@@ -173,7 +173,7 @@ export type getUserPlaylistType = {
 
 export const getUserPlaylist = (params: getUserPlaylistParams): AxiosPromise<getUserPlaylistType> => {
   return request({
-    url: 'api-text/user/playlist',
+    url: 'user/playlist',
     method: 'get',
     params,
   })

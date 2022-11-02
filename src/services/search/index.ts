@@ -12,7 +12,7 @@ type getSearchDefaultType = {
 
 export const getSearchDefault: customizeRequestType<any, getSearchDefaultType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/search/default',
+    url: 'search/default',
     method: 'get',
   })
   return {
@@ -33,7 +33,7 @@ type getSearchHotType = {
 
 export const getSearchHot: customizeRequestType<any, getSearchHotType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/search/hot',
+    url: 'search/hot',
     method: 'get',
   })
   return {
@@ -56,7 +56,7 @@ export type getSearchHotDetailType = {
 
 export const getSearchHotDetail: customizeRequestType<any, getSearchHotDetailType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/search/hot/detail',
+    url: 'search/hot/detail',
     method: 'get',
   })
   return {
@@ -86,7 +86,7 @@ export type getSearchHotTopicType = {
 
 export const getSearchHotTopic: customizeRequestType<getSearchHotTopicParamsType, getSearchHotTopicType> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/hot/topic',
+    url: 'hot/topic',
     method: 'get',
     params,
   })
@@ -112,7 +112,7 @@ type getSearchResultParamsType = {
 
 export const getSearchResult = (params: getSearchResultParamsType): AxiosPromise<getSearchResultType> => {
   return request({
-    url: 'api-text/search',
+    url: 'search',
     method: 'get',
     params,
   })
@@ -135,7 +135,7 @@ type getSearchSuggestType = {
 
 export const getSearchSuggest = (params: getSearchSuggestParamsType): AxiosPromise<getSearchSuggestType> => {
   return request({
-    url: 'api-text/search/suggest',
+    url: 'search/suggest',
     method: 'get',
     params,
   })

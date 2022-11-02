@@ -20,7 +20,7 @@ export type RecommendListType = {
 
 export const getRecommendList: customizeRequestType<RecommendListParams, RecommendListType> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/personalized',
+    url: 'personalized',
     method: 'get',
     params,
   })
@@ -44,7 +44,7 @@ export type RecommendDailyListType = {
 
 export const getRecommendDailyList: customizeRequestType<any, RecommendDailyListType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/recommend/resource',
+    url: 'recommend/resource',
     method: 'get',
   })
   return {
@@ -80,7 +80,7 @@ export type RecommendSongsType = {
 
 export const getRecommendSongs: customizeRequestType<any, RecommendSongsType> = () => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/recommend/songs',
+    url: 'recommend/songs',
     method: 'get',
   })
   return {

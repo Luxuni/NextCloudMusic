@@ -12,7 +12,7 @@ export type getSongUrlType = {
 
 export const getSongUrl = (params: { id: number }): AxiosPromise<getSongUrlType> => {
   return request({
-    url: 'api-text/song/url',
+    url: 'song/url',
     method: 'get',
     params,
   })

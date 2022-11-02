@@ -34,7 +34,7 @@ export type PlaylistDetailType = {
 
 export const getPlaylistDetail: customizeRequestType<{ id: string }, PlaylistDetailType> = (params) => {
   const { data, isLoading, isError } = useRequest({
-    url: 'api-text/playlist/detail',
+    url: 'playlist/detail',
     method: 'get',
     params,
   })
@@ -47,7 +47,7 @@ export const getPlaylistDetail: customizeRequestType<{ id: string }, PlaylistDet
 
 export const getPlaylistDetailRequest = (params: { id: string }): AxiosPromise<PlaylistDetailType> => {
   return request({
-    url: 'api-text/playlist/detail',
+    url: 'playlist/detail',
     method: 'get',
     params,
   })

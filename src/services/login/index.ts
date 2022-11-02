@@ -12,7 +12,7 @@ type loginByPhoneType = {
 
 export const loginByPhone = (params: loginByPhoneParamsType): AxiosPromise<loginByPhoneType> => {
   return request({
-    url: 'api-text/login/cellphone',
+    url: 'login/cellphone',
     method: 'post',
     data: params,
   })
