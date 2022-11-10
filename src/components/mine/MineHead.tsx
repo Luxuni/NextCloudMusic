@@ -1,14 +1,20 @@
-import { NextComponentType } from 'next'
-import { getLoginStatusType, getUserDetail } from '../../services/user'
-import MyImage from '../public/MyImage'
+import { Loading, SpinLoading } from 'antd-mobile';
+import { NextComponentType } from 'next';
+import { getLoginStatusType, getUserDetail } from '../../services/user';
+import MyImage from '../public/MyImage';
 
 type MineHeadProps = {
-  data: getLoginStatusType
-}
+  data: getLoginStatusType;
+};
 
 const MineHead: NextComponentType<{}, {}, MineHeadProps> = (props) => {
-  const { data, isLoading, isError } = getUserDetail({ uid: props.data.data.profile.userId })
-  if (isLoading) return <div>loading...</div>
+  const { data, isLoading, isError } = getUserDetail({ uid: props.data.data.profile.userId });
+  if (isLoading)
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <SpinLoading />
+      </div>
+    );
 
   return (
     <div className="card w-full bg-gradient-to-t from-neutral text-neutral-content">
@@ -24,7 +30,7 @@ const MineHead: NextComponentType<{}, {}, MineHeadProps> = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MineHead
+export default MineHead;

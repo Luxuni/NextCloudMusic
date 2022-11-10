@@ -1,53 +1,48 @@
-import { useCreation, useLockFn } from 'ahooks'
-import React, { useEffect, useRef, useState } from 'react'
-import MyHomeHead from '../../src/components/home/MyHomeHead'
-import NavLayout from '../../src/components/layout/nav-layout'
-import FavoriteAndCreateBar from '../../src/components/mine/FavoriteAndCreateBar'
-import MineHead from '../../src/components/mine/MineHead'
-import MinePageOptions from '../../src/components/mine/MinePageOptions'
-import PlaylistGroup from '../../src/components/mine/PlaylistGroup'
-import UserLike from '../../src/components/mine/UserLike'
-import {
-  getUserLoadingStatus,
-  getUserPlaylist,
-  getUserPlaylistType,
-  getUserSubCountType,
-  UserSubCountRequest,
-} from '../../src/services/user'
-import { NextPageWithLayout } from '../_app'
+import { useCreation, useLockFn } from 'ahooks';
+import { SpinLoading } from 'antd-mobile';
+import React, { useEffect, useRef, useState } from 'react';
+import MyHomeHead from '../../src/components/home/MyHomeHead';
+import NavLayout from '../../src/components/layout/nav-layout';
+import FavoriteAndCreateBar from '../../src/components/mine/FavoriteAndCreateBar';
+import MineHead from '../../src/components/mine/MineHead';
+import MinePageOptions from '../../src/components/mine/MinePageOptions';
+import PlaylistGroup from '../../src/components/mine/PlaylistGroup';
+import UserLike from '../../src/components/mine/UserLike';
+import { getUserLoadingStatus, getUserPlaylist, getUserPlaylistType, getUserSubCountType, UserSubCountRequest } from '../../src/services/user';
+import { NextPageWithLayout } from '../_app';
 
 const Mine: NextPageWithLayout = () => {
-  const { data, isLoading, isError } = getUserLoadingStatus()
-  const [userSubCount, setUserSubCount] = useState<getUserSubCountType | null>(null)
-  const [userPlaylist, setUserPlaylist] = useState<getUserPlaylistType | null>(null)
-  const favorite = useRef<HTMLDivElement | null>(null)
-  const create = useRef<HTMLDivElement | null>(null)
+  const { data, isLoading, isError } = getUserLoadingStatus();
+  const [userSubCount, setUserSubCount] = useState<getUserSubCountType | null>(null);
+  const [userPlaylist, setUserPlaylist] = useState<getUserPlaylistType | null>(null);
+  const favorite = useRef<HTMLDivElement | null>(null);
+  const create = useRef<HTMLDivElement | null>(null);
 
-  const loading = useCreation(
-    () => isLoading || !userSubCount || !userPlaylist,
-    [isLoading, userSubCount, userPlaylist],
-  )
+  const loading = useCreation(() => isLoading || !userSubCount || !userPlaylist, [isLoading, userSubCount, userPlaylist]);
 
   const getUserSubCountRequest = useLockFn(async () => {
-    const res = await UserSubCountRequest()
-    console.log(res.data)
-
-    setUserSubCount(res.data)
-  })
+    const res = await UserSubCountRequest();
+    setUserSubCount(res.data);
+  });
 
   const getUserPlaylistRequest = useLockFn(async () => {
-    const res = await getUserPlaylist({ uid: data.data.profile.userId })
-    setUserPlaylist(res.data)
-  })
+    const res = await getUserPlaylist({ uid: data.data.profile.userId });
+    setUserPlaylist(res.data);
+  });
 
   useEffect(() => {
     if (isLoading === false) {
-      getUserSubCountRequest()
-      getUserPlaylistRequest()
+      getUserSubCountRequest();
+      getUserPlaylistRequest();
     }
-  }, [isLoading])
+  }, [isLoading]);
 
-  if (loading) return <div>loading...</div>
+  if (loading)
+    return (
+      <div className="h-screen w-screen flex items-center justify-center">
+        <SpinLoading />
+      </div>
+    );
 
   return (
     <div>
@@ -73,11 +68,11 @@ const Mine: NextPageWithLayout = () => {
         <PlaylistGroup data={userPlaylist?.playlist.filter((item) => item.subscribed)} title="收藏歌单" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 Mine.getLayout = function getLayout(page: React.ReactNode) {
-  return <NavLayout>{page}</NavLayout>
-}
+  return <NavLayout>{page}</NavLayout>;
+};
 
-export default Mine
+export default Mine;

@@ -13,7 +13,7 @@ module.exports = withTM({
     return [
       {
         source: '/api/:path*',
-        destination: 'https://lu-music.vercel.app/:path*',
+        destination: 'http://localhost:4000/:path*',
       },
     ]
   },

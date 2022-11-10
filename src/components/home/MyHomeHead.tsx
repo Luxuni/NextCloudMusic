@@ -26,7 +26,7 @@ const MyHomeHead: NextComponentType = () => {
           setIsHomePopupShow(false)
         }}
         position="left"
-        bodyStyle={{ width: '80vw', borderBottomRightRadius: '1rem', borderTopRightRadius: '1rem' }}>
+        bodyStyle={{ width: '80vw'}}>
         {/* userMessages */}
         <div className="p-4 h-full overflow-y-scroll">
           <UserMessages />
