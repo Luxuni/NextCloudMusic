@@ -1,7 +1,4 @@
 import { NextComponentType } from 'next'
-import React from 'react'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { selectPlayModeNumber, playModeNumberAddition } from '../../../features/player/playerSlice'
 import PlayMode from '../PlayMode'
 
 const PlayModeIconMap = new Map([

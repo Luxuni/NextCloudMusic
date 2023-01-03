@@ -2,7 +2,7 @@ import { SearchBar, Skeleton } from 'antd-mobile'
 import { LeftOutline } from 'antd-mobile-icons'
 import { SearchBarRef } from 'antd-mobile/es/components/search-bar'
 import { useRouter } from 'next/router'
-import { createRef, Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from 'react'
+import { createRef, Dispatch, SetStateAction, useLayoutEffect } from 'react'
 import { NextPageWithLayout } from '../../../pages/_app'
 import { getSearchDefault } from '../../services/search'
 

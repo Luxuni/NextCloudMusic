@@ -1,3 +1,4 @@
+import { Toast } from 'antd-mobile'
 import axios, { AxiosRequestConfig } from 'axios'
 
 //take token
@@ -26,7 +27,10 @@ const handleNetworkError = (errStatus: number, data: { code: number; message: st
     [505, 'HTTP版本不受支持'],
   ])
   if (errMap.has(errStatus)) {
-    errMessage = errMap.get(errStatus) || '未知错误'
+    errMessage = data.message ? data.message : errMap.get(errStatus) || '未知错误'
+    Toast.show({
+      content: errMessage,
+    })
   }
   return errMessage
 }
