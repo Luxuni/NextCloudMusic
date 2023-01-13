@@ -29,7 +29,9 @@ const BigPlayerHeader: NextComponentType<{}, {}, BigPlayerHeaderProps> = (props)
       <div className="text-white flex flex-col w-2/3 items-center justify-center">
         <div className="text-base font-black">{needPlayedSongMessage.name}</div>
         <div className="text-sm">
-          <Ellipsis content={needPlayedSongMessage.ar.map((item) => item.name).join(' ')} />
+          <Ellipsis
+            content={(needPlayedSongMessage.artists ?? needPlayedSongMessage.ar).map((item) => item.name).join(' ')}
+          />
         </div>
       </div>
       {/* right */}

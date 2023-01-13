@@ -20,7 +20,7 @@ const BigPlayerBody: NextComponentType<{}, {}, BigPlayerBodyProps> = (props) => 
   const needPlayedSongMessage = useAppSelector(selectNeedPlayedSong)
   return (
     <animated.div style={{ ...styles }} className="h-96 w-96 rounded-full flex items-center justify-center bg-black">
-      <MyImage src={needPlayedSongMessage.al.picUrl} height="16rem" width="16rem" borderRadius="16rem" />
+      <MyImage src={needPlayedSongMessage.al?.picUrl} height="16rem" width="16rem" borderRadius="16rem" />
     </animated.div>
   )
 }

@@ -3,7 +3,7 @@ import { Image } from 'antd-mobile'
 // import Image from 'next/image'
 
 type MyImageType = {
-  src: string
+  src: string | undefined
   width?: string
   height?: string
   borderRadius?: number | string

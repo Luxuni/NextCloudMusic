@@ -58,11 +58,15 @@ export type DailySongsType = {
   reason: string
   id: number
   mv: number
-  al: {
+  al?: {
     id: number
     name: string
     picUrl: string
   }
+  artists: {
+    id: number
+    name: string
+  }[]
   ar: {
     id: number
     name: string

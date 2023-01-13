@@ -80,7 +80,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
           <Popup
             visible={isShowBigPlayerPopup}
             onMaskClick={handleCloseBigPlayerPopup}
-            bodyStyle={{ height: '100vh', background: `url(${needPlayedSong.al.picUrl})` }}>
+            bodyStyle={{ height: '100vh', background: `url(${needPlayedSong.al?.picUrl})` }}>
             <div className="h-screen w-screen backdrop-blur-xl">
               <BigPlayer
                 handleCloseBigPlayerPopup={handleCloseBigPlayerPopup}
@@ -136,7 +136,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                 <div className="h-full flex items-center justify-around w-4/5">
                   {/* image */}
                   <MyImage
-                    src={needPlayedSong.al.picUrl}
+                    src={needPlayedSong.al?.picUrl}
                     height="2rem"
                     width="2rem"
                     borderRadius="100%"
@@ -147,7 +147,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                     <Ellipsis direction="end" content={needPlayedSong.name} className="pr-4 text-[0.5rem]" />
                     <Ellipsis
                       direction="end"
-                      content={needPlayedSong.ar.map((item) => item.name).join(' ')}
+                      content={(needPlayedSong.artists??needPlayedSong.ar).map((item) => item.name).join(' ')}
                       className="text-[0.5rem]"
                     />
                   </div>
