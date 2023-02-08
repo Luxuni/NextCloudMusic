@@ -24,7 +24,7 @@ const LoginPage: NextPageWithLayout = () => {
   }
 
   return (
-    <Card className="w-5/6 animated fadeIn">
+    <Card className="w-5/6 animated fadeInUp">
       <h1 className="w-full text-center font-bold text-2xl mb-3 mt-3">欢迎登陆</h1>
       <Form
         layout="horizontal"

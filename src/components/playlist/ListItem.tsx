@@ -17,7 +17,10 @@ const ListItem: NextComponentType<{}, {}, ListItemProps> = (props) => {
         {/* content */}
         <div>
           <Ellipsis className="text-base" content={props.track.name} />
-          <Ellipsis className="text-xs mt-2" content={props.track.artists.map((item) => item.name).join(' ')} />
+          <Ellipsis
+            className="text-xs mt-2"
+            content={(props.track.artists || props.track.ar).map((item) => item.name).join(' ')}
+          />
         </div>
       </div>
       {/* rigth */}
