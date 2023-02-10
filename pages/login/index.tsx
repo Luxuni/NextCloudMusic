@@ -1,7 +1,11 @@
-import { Button, Card, Form, Input } from 'antd-mobile'
+import { Toast } from 'antd-mobile'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactElement } from 'react'
+import { ReactElement, startTransition } from 'react'
+import { useImmer } from 'use-immer'
+import { useHandleObjectData } from '../../src/app/hooks'
 import LoginLayout from '../../src/components/layout/login-layout'
+import MyInput from '../../src/components/public/MyInput'
 import { loginByPhone } from '../../src/services/login'
 import { NextPageWithLayout } from '../_app'
 
@@ -11,7 +15,15 @@ type loginValueType = {
 }
 
 const LoginPage: NextPageWithLayout = () => {
+  const [data, setData] = useImmer({
+    phone: '',
+    password: '',
+  })
+
+  const handleData = useHandleObjectData<typeof data>(setData)
+
   const router = useRouter()
+
   const handleLogin = async (value: loginValueType) => {
     const res = await loginByPhone(value)
     //save token
@@ -22,27 +34,55 @@ const LoginPage: NextPageWithLayout = () => {
       router.push('/home')
     }
   }
-
   return (
-    <Card className="w-5/6 animated fadeInUp">
-      <h1 className="w-full text-center font-bold text-2xl mb-3 mt-3">欢迎登陆</h1>
-      <Form
-        layout="horizontal"
-        mode="card"
-        footer={
-          <Button block type="submit" color="primary">
-            登陆
-          </Button>
-        }
-        onFinish={handleLogin}>
-        <Form.Item label={<span>手机号</span>} name="phone">
-          <Input placeholder="请输入手机号" />
-        </Form.Item>
-        <Form.Item label={<span>密码</span>} name="password">
-          <Input placeholder="请输入密码" />
-        </Form.Item>
-      </Form>
-    </Card>
+    <div className="card w-96 glass animated fadeInUp">
+      <figure>
+        <h1 className="h-28 text-3xl font-black flex items-center">欢迎登陆</h1>
+      </figure>
+      <div className="card-body h-72 pt-0">
+        <div className="form-control h-full justify-around">
+          <MyInput
+            rules={[{ required: data.phone !== '', message: '请输入账号！' }]}
+            labelName="账号"
+            placeholder="请输入账号"
+            onChange={(e) => {
+              startTransition(() => {
+                handleData('phone', e.target.value)
+              })
+            }}
+          />
+          <MyInput
+            rules={[{ required: data.password !== '', message: '请输入密码' }]}
+            labelName="密码"
+            placeholder="请输入密码"
+            onChange={(e) => {
+              startTransition(() => {
+                handleData('password', e.target.value)
+              })
+            }}
+          />
+          <div className="flex items-center justify-between">
+            <div>
+              <Link href={'/sign'}>使用二维码登陆？</Link>
+            </div>
+            <button
+              className="btn btn-active btn-secondary w-24 text-theme-text"
+              onClick={() => {
+                let key: keyof typeof data
+                for (key in data) {
+                  if (data[key] === '') {
+                    return Toast.show({ content: '请填写账号和密码！' })
+                  } else {
+                    handleLogin(data)
+                  }
+                }
+              }}>
+              登陆
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

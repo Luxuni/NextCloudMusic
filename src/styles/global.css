@@ -21,3 +21,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+@layer base {
+  :root {
+    --b3: #fff;
+    --tl: #000;
+    --switch: #fff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --b3: 219 18% 15%;
+      --tl: #fff;
+      --switch: #fff;
+    }
+  }
+}

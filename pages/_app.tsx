@@ -5,7 +5,6 @@ import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { Provider } from 'react-redux'
-import { themeChange } from 'theme-change'
 import store from '../src/app/store'
 import '../src/styles/global.css'
 import '../src/styles/vars.css'
@@ -25,8 +24,8 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   useEffect(() => {
-    themeChange(false)
-    document.documentElement.setAttribute('data-theme', 'pastel')
+    // themeChange(false)
+    // document.documentElement.setAttribute('data-theme', 'pastel')
     // 👆 false parameter is required for react project
   }, [])
   return <Provider store={store}>{getLayout(<Component {...pageProps}></Component>)}</Provider>
