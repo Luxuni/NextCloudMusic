@@ -63,7 +63,7 @@ const LoginPage: NextPageWithLayout = () => {
           />
           <div className="flex items-center justify-between">
             <div>
-              <Link href={'/sign'}>使用二维码登陆？</Link>
+              <Link href={'/login/qr'}>使用二维码登陆？</Link>
             </div>
             <button
               className="btn btn-active btn-secondary w-24 text-theme-text"

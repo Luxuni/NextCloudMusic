@@ -46,7 +46,7 @@ const source = CancelToken.source()
 
 //base config
 const request = axios.create({
-  baseURL: 'api',
+  baseURL: 'http://localhost:3000/api',
   timeout: 10000,
   //allow coookies
   withCredentials: true,
