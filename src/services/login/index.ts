@@ -22,7 +22,10 @@ export const loginByPhone = (params: loginByPhoneParamsType): AxiosPromise<login
 
 type qrKetType = {
   code: number
-  unikey: string
+  data: {
+    code: number
+    unikey: string
+  }
 }
 
 export const getQRKey: customizeRequestType<null, qrKetType> = () => {
@@ -59,4 +62,18 @@ export const QRCreat: customizeRequestType<{ key: string }, qrType> = (params) =
     isLoading,
     isError,
   }
+}
+
+type qrPollingType = {
+  code: number
+  cookie: string
+  message: string
+}
+
+export const QRPolling = (params: { key: string }): AxiosPromise<qrPollingType> => {
+  return request({
+    url: 'login/qr/check',
+    method: 'get',
+    params,
+  })
 }
