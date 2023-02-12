@@ -77,3 +77,28 @@ export const QRPolling = (params: { key: string }): AxiosPromise<qrPollingType> 
     params,
   })
 }
+
+//Get user login status
+export const getUserStatus = (): AxiosPromise<{
+  data: {
+    code: number
+    profile: {} | null
+  }
+}> => {
+  return request({
+    url: 'login/status',
+    method: 'get',
+  })
+}
+
+//login out
+export const loginOut = (): AxiosPromise<{
+  data: {
+    code: number
+  }
+}> => {
+  return request({
+    url: 'logout',
+    method: 'post',
+  })
+}

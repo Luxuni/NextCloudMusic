@@ -1,5 +1,7 @@
 import { Skeleton } from 'antd-mobile'
 import { NextComponentType } from 'next'
+import { useRouter } from 'next/router'
+import { loginOut } from '../../services/login'
 import { getUserLoadingStatus } from '../../services/user'
 import HomePopupHeader from './HomePopupHeader'
 import Menu from './Menu'
@@ -8,6 +10,14 @@ import VipTag from './VipTag'
 
 const UserMessages: NextComponentType = () => {
   const { data, isLoading, isError } = getUserLoadingStatus()
+
+  const router = useRouter()
+
+  const handleLoginOut = async () => {
+    await loginOut()
+    router.push('/login')
+  }
+
   if (isLoading)
     return (
       <>
@@ -37,7 +47,9 @@ const UserMessages: NextComponentType = () => {
       </div>
       {/* login out */}
       <div className="mt-8">
-        <button className="btn btn-active btn-secondary w-full shadow-xl">退出登陆</button>
+        <button className="btn btn-active btn-secondary w-full shadow-xl" onClick={handleLoginOut}>
+          退出登陆
+        </button>
       </div>
     </div>
   )

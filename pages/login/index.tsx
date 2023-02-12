@@ -20,9 +20,9 @@ const LoginPage: NextPageWithLayout = () => {
     password: '',
   })
 
-  const handleData = useHandleObjectData<typeof data>(setData)
-
   const router = useRouter()
+
+  const handleData = useHandleObjectData<typeof data>(setData)
 
   const handleLogin = async (value: loginValueType) => {
     const res = await loginByPhone(value)

@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit'
 import playerReducer from '../features/player/playerSlice'
-
+import unikeyReducer from '../features/unikey/unikeySlice'
 export function makeStore() {
   return configureStore({
-    reducer: {player: playerReducer },
+    reducer: {player: playerReducer ,unikey:unikeyReducer},
     middleware: [
       ...getDefaultMiddleware({
         serializableCheck: false,
