@@ -4,11 +4,11 @@ import unikeyReducer from '../features/unikey/unikeySlice'
 export function makeStore() {
   return configureStore({
     reducer: {player: playerReducer ,unikey:unikeyReducer},
-    middleware: [
-      ...getDefaultMiddleware({
-        serializableCheck: false,
-      }),
-    ],
+    // middleware: [
+    //   ...getDefaultMiddleware({
+    //     serializableCheck: false,
+    //   }),
+    // ],
   })
 }
 

@@ -28,16 +28,11 @@ type qrKetType = {
   }
 }
 
-export const getQRKey: customizeRequestType<null, qrKetType> = () => {
-  const { data, isLoading, isError } = useRequest({
+export const getQRKey = (): AxiosPromise<qrKetType> => {
+  return request({
     url: 'login/qr/key',
     method: 'get',
   })
-  return {
-    data,
-    isLoading,
-    isError,
-  }
 }
 
 type qrType = {
@@ -48,8 +43,8 @@ type qrType = {
   }
 }
 
-export const QRCreat: customizeRequestType<{ key: string }, qrType> = (params) => {
-  const { data, isLoading, isError } = useRequest({
+export const QRCreat = (params: { key: string }): AxiosPromise<qrType> => {
+  return request({
     url: '/login/qr/create',
     method: 'get',
     params: {
@@ -57,11 +52,6 @@ export const QRCreat: customizeRequestType<{ key: string }, qrType> = (params) =
       qrimg: true,
     },
   })
-  return {
-    data,
-    isLoading,
-    isError,
-  }
 }
 
 type qrPollingType = {
