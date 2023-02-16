@@ -9,6 +9,10 @@ export interface PlayerState {
   playModeNumber: number
   playPointer: number
   status: 'idle' | 'loading' | 'failed'
+  nowLyrics: Map<number, string>
+  nowTime: number
+  ShowLyrics: string
+  ShowLyricsArr: string[]
 }
 
 const initialState: PlayerState = {
@@ -16,6 +20,10 @@ const initialState: PlayerState = {
   playPointer: 0,
   playModeNumber: 0,
   status: 'idle',
+  nowLyrics: new Map(),
+  nowTime: 0,
+  ShowLyrics: '',
+  ShowLyricsArr: [],
 }
 
 export const playerSlice = createSlice({
@@ -63,6 +71,30 @@ export const playerSlice = createSlice({
     playModeNumberAddition: (state, action: PayloadAction<number>) => {
       state.playModeNumber = action.payload
     },
+
+    setLyrics: (state, action: PayloadAction<{ timeArr: number[]; lyricsArr: string[] }>) => {
+      const { timeArr, lyricsArr } = action.payload
+      const newMap = new Map()
+      timeArr.forEach((item, index) => {
+        newMap.set(Math.round(item), lyricsArr[index])
+      })
+      state.nowLyrics = newMap
+    },
+
+    setNowTime: (state, action: PayloadAction<number>) => {
+      state.nowTime = action.payload
+      if (state.nowLyrics.get(action.payload)) {
+        state.ShowLyrics = state.nowLyrics.get(action.payload) || ''
+      }
+      // } else {
+      //   // 获取上一条
+      //   const keys = Array.from(state.nowLyrics.keys())
+      //   const index = keys.indexOf(action.payload)
+      //   if (index > 0) {
+      //     state.ShowLyrics = state.nowLyrics.get(keys[index - 1]) || ''
+      //   }
+      // }
+    },
   },
 })
 
@@ -74,6 +106,8 @@ export const {
   handleSongOnEnded,
   handleForcePlayNextTrack,
   handleForcePlayPreviousTrack,
+  setLyrics,
+  setNowTime,
 } = playerSlice.actions
 
 export const selectPlayer = (state: AppState) => Array.from(state.player.value.values())
@@ -86,5 +120,11 @@ export const selectPlayMode = (state: AppState) => ['loop', 'random', 'single'][
 
 export const selectNeedPlayedSong = (state: AppState) =>
   Array.from(state.player.value.values())[state.player.playPointer]
+
+export const selectNowLyrics = (state: AppState) => state.player.nowLyrics
+
+export const selectNowLyricsValueArr = (state: AppState) => Array.from(state.player.nowLyrics.values())
+
+export const selectShowLyrics = (state: AppState) => state.player.ShowLyrics
 
 export default playerSlice.reducer

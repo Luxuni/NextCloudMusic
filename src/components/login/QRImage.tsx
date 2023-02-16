@@ -8,9 +8,9 @@ import { getUnikeyAsync, selectUnikey } from '../../features/unikey/unikeySlice'
 import { QRCreat, QRPolling } from '../../services/login'
 
 const QRImage: NextComponentType = () => {
-  const [qrimg, setQrimg] = useState<string>('')
+  const [qrimg, setQrimg] = useState('')
 
-  const [isMask, setIsMask] = useState<boolean>(false)
+  const [isMask, setIsMask] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -56,7 +56,6 @@ const QRImage: NextComponentType = () => {
   }, [unikey])
 
   if (loading) {
-    console.log(pollingData?.data)
     if (pollingData?.data.code === 803) {
       Toast.show({
         content: pollingData?.data.message,
@@ -64,20 +63,21 @@ const QRImage: NextComponentType = () => {
       router.push('/home')
     }
     if (pollingData?.data.code === 800) {
-      Toast.show({
-        content: pollingData?.data.message,
-      })
-      // show mask
-      cancel()
-      setIsMask(true)
+      if (!isMask) {
+        setIsMask(true)
+      }
+    }
+    if (pollingData?.data.code === 802) {
+      if (!isMask) {
+        setIsMask(true)
+      }
     }
   }
-
   return (
     <div className="relative">
       <img className="h-44 w-44" src={qrimg} />
       {/* mask */}
-      {isMask && (
+      {isMask && pollingData?.data.code === 800 && (
         <div className="absolute h-full w-full top-0 bg-black opacity-70 flex items-center justify-center">
           <Button
             size="small"
@@ -88,6 +88,13 @@ const QRImage: NextComponentType = () => {
               setIsMask(false)
             }}>
             二维码已过期
+          </Button>
+        </div>
+      )}
+      {isMask && pollingData?.data.code === 802 && (
+        <div className="absolute h-full w-full top-0 bg-black opacity-70 flex items-center justify-center">
+          <Button size="small" color="danger" className="bg-red-600 opacity-100">
+            请在app上确认
           </Button>
         </div>
       )}

@@ -5,7 +5,7 @@ import moment from 'moment'
 import { NextComponentType } from 'next'
 import { useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { handleSongOnEnded, selectNeedPlayedSong, selectPlayer } from '../../features/player/playerSlice'
+import { handleSongOnEnded, selectNeedPlayedSong, selectPlayer, setNowTime } from '../../features/player/playerSlice'
 import MyImage from '../public/MyImage'
 import BigPlayer from './BigPlayer'
 import MyAudio, { MyAudioRefType } from './MyAudio'
@@ -51,11 +51,13 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
 
   const handleOnTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
     if (!refChangesliderValueLock && Math.abs(e.currentTarget.currentTime - sliderValue) > 1) {
-      setSliderValue(e.currentTarget.currentTime)
+      const currentTime = Math.round(Number(e.currentTarget.currentTime))
+      dispatch(setNowTime(currentTime))
+      setSliderValue(currentTime)
     }
   }
 
-  const throttleHandleOnTimeUpdate = _.throttle(handleOnTimeUpdate, 1000, { leading: true, trailing: false })
+  const throttleHandleOnTimeUpdate = _.throttle(handleOnTimeUpdate, 500, { leading: true, trailing: false })
 
   useUpdateEffect(() => {
     setIsLoading(true)
@@ -103,7 +105,9 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                       onChange={(value) => {
                         // locked
                         setRefChangesliderValueLock(true)
-                        setSliderValue(Number(value))
+                        const currentTime = Math.round(Number(value))
+                        setSliderValue(currentTime)
+                        dispatch(setNowTime(currentTime))
                       }}
                     />
                   </div>
@@ -147,7 +151,7 @@ const Player: NextComponentType<{}, {}, PlayPropsType> = (props) => {
                     <Ellipsis direction="end" content={needPlayedSong.name} className="pr-4 text-[0.5rem]" />
                     <Ellipsis
                       direction="end"
-                      content={(needPlayedSong.artists??needPlayedSong.ar).map((item) => item.name).join(' ')}
+                      content={(needPlayedSong.artists ?? needPlayedSong.ar).map((item) => item.name).join(' ')}
                       className="text-[0.5rem]"
                     />
                   </div>

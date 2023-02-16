@@ -1,7 +1,8 @@
 import { NextComponentType } from 'next'
-import { Dispatch, MutableRefObject, ReactNode, SetStateAction } from 'react'
+import { Dispatch, MutableRefObject, ReactNode, SetStateAction, useState } from 'react'
 import BigPlayerBody from './BigPlayerBody'
 import BigPlayerHeader from './BigPlayerHeader'
+import Lyrice from './Lyrics'
 import Options from './Options'
 import PlaybackControls from './PlayBackControls'
 
@@ -14,6 +15,7 @@ type BigPlayerProps = {
 }
 
 const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
+  const [isBigPlayerBody, setIsBigPlayerBody] = useState<boolean>(true)
   return (
     <div className="h-full flex flex-col">
       {/* head */}
@@ -21,8 +23,17 @@ const BigPlayer: NextComponentType<{}, {}, BigPlayerProps> = (props) => {
         <BigPlayerHeader handleCloseBigPlayerPopup={props.handleCloseBigPlayerPopup} />
       </div>
       {/* body */}
-      <div className="h-[60vh] flex items-center justify-center">
-        <BigPlayerBody rotationAnimationState={props.rotationAnimationState} />
+      <div
+        className="h-[60vh] flex items-center justify-center "
+        onClick={() => {
+          setIsBigPlayerBody(!isBigPlayerBody)
+        }}>
+        {isBigPlayerBody ? (
+          <BigPlayerBody rotationAnimationState={props.rotationAnimationState} />
+        ) : (
+          // TODO: make this a component:Lyrics
+          <Lyrice />
+        )}
       </div>
       {/* bottom */}
       <div className="flex flex-1 flex-col justify-between">

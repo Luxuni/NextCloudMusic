@@ -17,3 +17,28 @@ export const getSongUrl = (params: { id: number }): AxiosPromise<getSongUrlType>
     params,
   })
 }
+
+// get lyric
+export type getLyricType = {
+  code: number
+  lrc: {
+    version: number
+    lyric: string
+  }
+  tlyric: {
+    version: number
+    lyric: string
+  }
+  klyric: {
+    version: number
+    lyric: string
+  }
+}
+
+export const getLyric = (params: { id: number }): AxiosPromise<getLyricType> => {
+  return request({
+    url: 'lyric',
+    method: 'get',
+    params,
+  })
+}
